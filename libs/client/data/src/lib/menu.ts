@@ -3,7 +3,7 @@ import {
   ArrowLeftOnRectangleIcon,
   PlusCircleIcon,
 } from '@heroicons/react/24/outline';
-import { MenuItem } from '@auction-nx/client/components/popup';
+import { MenuItem } from '@auction-nx/client/components/dialog';
 
 export const profile: MenuItem[] = [
   {
