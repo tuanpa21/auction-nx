@@ -1,21 +1,13 @@
-import { z } from 'zod';
-import { toFormikValidationSchema } from 'zod-formik-adapter';
+import * as yup from 'yup';
 
-const validationSchema = z.object({
-  name: z
-    .string({
-      required_error: 'Email is required',
-    })
+const validationSchema = yup.object().shape({
+  name: yup
+    .string()
     .email('Invalid email address'),
-  start_price: z.number({
-    required_error: 'Start Price is required',
-  }),
-  time_window: z
-    .string({
-      required_error: 'Time Window is required',
-    })
-    .datetime(),
+  start_price: yup.number().required('Start Price is required'),
+  time_window: yup
+    .string().required('Time Window is required'),
 });
-export type TCreateItem = z.infer<typeof validationSchema>;
+export type TCreateItem = yup.InferType<typeof validationSchema>;
 
-export const createItemSchema = toFormikValidationSchema(validationSchema);
+export const createItemSchema = validationSchema;

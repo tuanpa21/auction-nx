@@ -16,8 +16,7 @@
     "react-toastify": "^9.1.1",
     "slugify": "^1.6.5",
     "tslib": "^2.3.0",
-    "zod": "^3.20.6",
-    "zod-formik-adapter": "^1.2.0",
+    "yup": "^1.0.0",
     "zustand": "^4.3.3"
   },
   "devDependencies": {
