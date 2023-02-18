@@ -1,0 +1,26 @@
+{
+  "name": "client-utils",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/utils/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/client/utils",
+        "main": "libs/client/utils/src/index.ts",
+        "tsConfig": "libs/client/utils/tsconfig.lib.json",
+        "assets": ["libs/client/utils/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/utils/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

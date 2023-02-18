@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@auction-nx/client/pages/dashboard": [
+        "libs/client/pages/dashboard/src/index.ts"
+      ],
+      "@auction-nx/client/utils": ["libs/client/utils/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
