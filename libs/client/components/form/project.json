@@ -1,0 +1,16 @@
+{
+  "name": "client-components-form",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/components/form/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/components/form/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

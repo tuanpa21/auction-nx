@@ -22,6 +22,9 @@
       "@auction-nx/client/components/dialog": [
         "libs/client/components/dialog/src/index.ts"
       ],
+      "@auction-nx/client/components/form": [
+        "libs/client/components/form/src/index.ts"
+      ],
       "@auction-nx/client/components/popup": [
         "libs/client/components/popup/src/index.ts"
       ],

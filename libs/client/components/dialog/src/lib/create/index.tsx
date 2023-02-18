@@ -1,4 +1,3 @@
-import Button from '@/components/button';
 import { Transition, Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
@@ -7,8 +6,10 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 
 import { useMutation } from '@tanstack/react-query';
-import Input from '@/components/form/input';
+
 import { getAPIEndpoint } from '@auction-nx/client/utils';
+import { Button } from '@auction-nx/client/components/button';
+import { Input } from '@auction-nx/client/components/form';
 
 interface Props {
   open: boolean;
