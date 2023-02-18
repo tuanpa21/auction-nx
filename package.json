@@ -5,10 +5,20 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.7.11",
+    "@heroicons/react": "^2.0.16",
+    "@tanstack/react-query": "^4.24.6",
+    "@tanstack/react-table": "^8.7.9",
+    "formik": "^2.2.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-router-dom": "6.4.3",
-    "tslib": "^2.3.0"
+    "react-toastify": "^9.1.1",
+    "slugify": "^1.6.5",
+    "tslib": "^2.3.0",
+    "zod": "^3.20.6",
+    "zod-formik-adapter": "^1.2.0",
+    "zustand": "^4.3.3"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
