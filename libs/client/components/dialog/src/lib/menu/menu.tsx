@@ -83,6 +83,7 @@ export default function MenuPopUp({ items }: MenuProps) {
                         className={'cursor-pointer'}
                       >
                         {({ active, close }) => (
+                          // eslint-disable-next-line jsx-a11y/anchor-is-valid
                           <a
                             key={index}
                             className={classNames(
