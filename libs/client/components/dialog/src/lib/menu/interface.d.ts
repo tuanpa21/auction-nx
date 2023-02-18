@@ -1,9 +1,21 @@
+import { ForwardRefExoticComponent, SVGProps } from 'react';
 import {
   ArrowLeftIcon,
   ArrowLeftOnRectangleIcon,
   PlusCircleIcon,
 } from '@heroicons/react/24/outline';
-import { MenuItem } from '@auction-nx/client/components/dialog';
+
+export interface MenuItem {
+  id: string;
+  name: string;
+  icon: ForwardRefExoticComponent<SVGProps<SVGSVGElement>>;
+  href: string;
+  bgColorClass?: string;
+}
+
+interface MenuProps {
+  items: MenuItem[];
+}
 
 export const profile: MenuItem[] = [
   {
