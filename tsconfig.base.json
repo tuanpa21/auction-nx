@@ -28,6 +28,12 @@
       "@auction-nx/client/components/icon": [
         "libs/client/components/icon/src/index.ts"
       ],
+      "@auction-nx/client/components/layout": [
+        "libs/client/components/layout/src/index.ts"
+      ],
+      "@auction-nx/client/components/navigation": [
+        "libs/client/components/navigation/src/index.ts"
+      ],
       "@auction-nx/client/components/popup": [
         "libs/client/components/popup/src/index.ts"
       ],
