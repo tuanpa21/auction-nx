@@ -4,12 +4,12 @@ import { TBid, bidSchema } from './schema';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 
-import Input from '@/components/form/input';
 import { Transition, Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Fragment } from 'react';
 import { getAPIEndpoint } from '@auction-nx/client/utils';
 import { Button } from '@auction-nx/client/components/button';
+import { Input } from '@auction-nx/client/components/form';
 
 interface Props {
   open: boolean;
