@@ -1,0 +1,16 @@
+{
+  "name": "client-pages-auth",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/pages/auth/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/pages/auth/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  }
+}

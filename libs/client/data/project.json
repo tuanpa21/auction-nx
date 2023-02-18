@@ -1,0 +1,26 @@
+{
+  "name": "client-data",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/client/data/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/client/data",
+        "main": "libs/client/data/src/index.ts",
+        "tsConfig": "libs/client/data/tsconfig.lib.json",
+        "assets": ["libs/client/data/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/client/data/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
