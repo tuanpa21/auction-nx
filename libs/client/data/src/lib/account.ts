@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import * as yup from 'yup';
 
-const accountSchema = z.object({
-  email: z.string().optional(),
-  balance: z.number().optional(),
+const accountSchema = yup.object().shape({
+  email: yup.string().optional(),
+  balance: yup.number().optional(),
 });
 
-export type Account = z.infer<typeof accountSchema>;
+export type Account = yup.InferType<typeof accountSchema>;

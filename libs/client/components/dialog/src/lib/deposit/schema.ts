@@ -1,11 +1,8 @@
-import { z } from 'zod';
-import { toFormikValidationSchema } from 'zod-formik-adapter';
+import * as yup from 'yup';
 
-const validationSchema = z.object({
-  amount: z.number({
-    required_error: 'Amount is required',
-  }),
+const validationSchema = yup.object().shape({
+  amount: yup.number().required('Amount is required'),
 });
-export type TDeposit = z.infer<typeof validationSchema>;
+export type TDeposit = yup.InferType<typeof validationSchema>;
 
-export const depositSchema = toFormikValidationSchema(validationSchema);
+export const depositSchema = validationSchema;

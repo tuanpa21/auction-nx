@@ -1,11 +1,8 @@
-import { z } from 'zod';
-import { toFormikValidationSchema } from 'zod-formik-adapter';
+import * as yup from 'yup';
 
-const validationSchema = z.object({
-  price: z.number({
-    required_error: 'Amount is required',
-  }),
+const validationSchema = yup.object().shape({
+  price: yup.number().required("Amount is required"),
 });
-export type TBid = z.infer<typeof validationSchema>;
+export type TBid = yup.InferType<typeof validationSchema>;
 
-export const bidSchema = toFormikValidationSchema(validationSchema);
+export const bidSchema = validationSchema;
