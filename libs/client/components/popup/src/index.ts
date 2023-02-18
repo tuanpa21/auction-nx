@@ -1,2 +1,2 @@
-export { default as Menu } from './lib/menu';
+export { default as MenuPopUp } from './lib/menu';
 export * from './lib/interface';

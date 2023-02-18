@@ -3,7 +3,6 @@ import {
   ArrowLeftOnRectangleIcon,
   PlusCircleIcon,
 } from '@heroicons/react/24/outline';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { MenuItem } from '@auction-nx/client/components/popup';
 
 export const profile: MenuItem[] = [

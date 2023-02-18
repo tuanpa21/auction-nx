@@ -1,4 +1,4 @@
 export * from './lib';
 export * from './lib/env';
-export * from './lib/queryClient';
-export * from './lib/route';
+export { default as queryClient } from './lib/queryClient';
+export { default as changeState } from './lib/route';

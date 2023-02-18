@@ -1,14 +1,17 @@
 import { Menu, Transition } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import DepositDialog from '../dialog/deposit';
-import CreateItemDialog from '../dialog/create';
-import { classNames } from '@auction-nx/client/utils';
-import changeState from '../../../../utils/src/lib/route';
-import { MenuProps } from './interface';
 
-export default function Menu({ items }: MenuProps) {
+import { classNames, changeState } from '@auction-nx/client/utils';
+
+import { MenuProps } from './interface';
+import {
+  CreateItemDialog,
+  DepositDialog,
+} from '@auction-nx/client/components/dialog';
+
+export default function MenuPopUp({ items }: MenuProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState({
     id: '',
