@@ -1,4 +1,4 @@
-import CircularProgress from '../icon/circular-progress';
+import { CircularProgress } from '@auction-nx/client/components/icon';
 
 export type NativeButtonProps = React.ComponentPropsWithoutRef<'button'>;
 
