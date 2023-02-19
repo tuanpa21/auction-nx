@@ -37,6 +37,9 @@
       "@auction-nx/client/components/popup": [
         "libs/client/components/popup/src/index.ts"
       ],
+      "@auction-nx/client/components/table": [
+        "libs/client/components/table/src/index.ts"
+      ],
       "@auction-nx/client/data": ["libs/client/data/src/index.ts"],
       "@auction-nx/client/pages/auth": ["libs/client/pages/auth/src/index.ts"],
       "@auction-nx/client/pages/dashboard": [
