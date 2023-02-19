@@ -1,6 +1,6 @@
 // import { useBid } from '@auction-nx/client/components/dialog';
-import { MenuPopUp } from '@auction-nx/client/components/popup';
-import { profile } from '@auction-nx/client/data';
+import { MenuPopUp } from '@auction-nx/client/components/dialog';
+import { profile } from '@auction-nx/client/components/dialog';
 
 export default function Header() {
   //   const { data } = useBid();
