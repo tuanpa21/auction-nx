@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Button } from "@auction-nx/client/components/button";
 import { Input } from "@auction-nx/client/components/form";
 import { Authentication, authenticationSchema } from "@auction-nx/client/data";
+import { http } from "@auction-nx/client/utils";
 
 type TAuthType = 'login' | 'register';
 
@@ -20,20 +21,16 @@ function Auth() {
       data: Authentication;
       mutationType: TAuthType;
     }) => {
-      // return fetch(
-      //   `${getAPIEndpoint()}/${
-      //     mutationType === 'login' ? 'login' : `register`
-      //   }`,
-      //   {
-      //     method: mutationType == 'login' ? 'GET' : 'POST',
-      //     body: JSON.stringify({
-      //       email: data?.email,
-      //       password: data?.password,
-      //     }),
-      //   }
-      // );
-
-      return fetch("https://jsonplaceholder.typicode.com/todos/1")
+      return http(
+        {
+          method: mutationType === 'login' ? 'GET' : 'POST',
+          url: mutationType === 'login' ? '/login' : '/register',
+          data: JSON.stringify({
+            email: data?.email,
+            password: data?.password,
+          }),
+        }
+      );
     },
     onSuccess(data, variables, context) {
       //TODO: redirect to dashboard

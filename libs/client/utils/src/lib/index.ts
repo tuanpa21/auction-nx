@@ -1,5 +1,6 @@
 import { AxiosError, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
+import { getAPIEndpoint } from './env';
 
 
 export function classNames(...classes: string[]) {
@@ -40,12 +41,12 @@ interface IConfig<T> extends AxiosRequestConfig<T> {
   data?: T;
 }
 
-export async function http<T>(requestConfig: IConfig<T>){
+export async function http<T>(requestConfig: AxiosRequestConfig<T>){
 
   try {
 
     axios.create({
-      baseURL: 'http://localhost:3333/api/',
+      baseURL: getAPIEndpoint(),
       headers: {
         'Content-Type': 'application/json',
       },
