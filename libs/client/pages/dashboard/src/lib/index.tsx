@@ -1,16 +1,51 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { BaseLayout } from '@auction-nx/client/components/layout';
 import { Tab } from '@headlessui/react';
+import { createColumnHelper } from '@tanstack/react-table';
+import { Bid } from '@auction-nx/client/data';
+import { Button } from '@auction-nx/client/components/button';
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
+const columnHelper = createColumnHelper<Bid>()
+
 function DashboardPage() {
   //TODO: Redirect to login page if not logged in
 
+  const columns = useMemo(() => [
+    columnHelper.accessor('id', {
+      header: () => 'ID',
+      cell: info => info.getValue(),
+    }),
+
+    columnHelper.accessor('current_price', {
+      header: () => 'Current Price',
+      cell: info => info.getValue(),
+    }),
+
+    columnHelper.accessor('duration', {
+      header: () => 'Duration',
+      cell: info => info.getValue(),
+    }),
+
+    columnHelper.display({
+      header:  'Bid',
+      cell: props => (
+        <Button 
+          onClick={() => {
+            console.log(props.row.original)
+          }}
+          title='Bid'
+        />
+      ),
+    }),
+    
+  ], []);
+  
   const [count, setCount] = useState(0);
   const [categories] = useState({
     Recent: [
