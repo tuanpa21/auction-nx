@@ -4,10 +4,12 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Authentication, authenticationSchema } from './utils';
+import { useNavigate } from 'react-router-dom';
 
 type TAuthType = 'login' | 'register';
 
 export function useAuthData(type?: string) {
+  const navigate = useNavigate();
   const { isLoading, mutate } = useMutation({
     mutationFn: ({
       data,
@@ -16,21 +18,29 @@ export function useAuthData(type?: string) {
       data: Authentication;
       mutationType: TAuthType;
     }) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const reqData: any = {
+        ...data,
+      };
+      if (mutationType === 'register') reqData.name = 'test';
+
       return http({
-        method: mutationType === 'login' ? 'GET' : 'POST',
-        url: mutationType === 'login' ? '/login' : '/register',
+        method: 'post',
+        url: mutationType === 'login' ? 'auth/sign-in' : 'auth/sign-up',
         data: JSON.stringify({
-          email: data?.email,
-          password: data?.password,
+          ...reqData,
         }),
       });
     },
     onSuccess(data, variables, context) {
+      console.log(data);
       //TODO: redirect to dashboard
       toast.success('Successful');
+      navigate('/');
     },
     onError(error, variables, context) {
-      toast.error('An error occurred');
+      console.log(error);
+      toast.error(`An error occurred`);
     },
   });
   const onSubmit = (values: { email: string; password: string }) => {

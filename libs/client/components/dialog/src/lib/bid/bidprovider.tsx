@@ -81,6 +81,8 @@ export default function BidProvider<T>({
         error,
         refetch,
       }}
-    ></BidStateContext.Provider>
+    >
+      {children}
+    </BidStateContext.Provider>
   );
 }

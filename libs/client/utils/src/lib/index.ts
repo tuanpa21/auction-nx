@@ -36,20 +36,26 @@ export function getExpiresIn() {
   return localStorage.getItem('expiresIn');
 }
 
+export function removeToken() {
+  localStorage.removeItem('token');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('expiresIn');
+}
+
 interface IConfig<T> extends AxiosRequestConfig<T> {
   data?: T;
 }
 
 export async function http<T>(requestConfig: AxiosRequestConfig<T>) {
   try {
-    axios.create({
+    const explorer = axios.create({
       baseURL: getAPIEndpoint(),
       headers: {
         'Content-Type': 'application/json',
       },
     });
     // add token to request
-    axios.interceptors.request.use(
+    explorer.interceptors.request.use(
       async (config) => {
         //check if token has expired
         if (
@@ -68,7 +74,7 @@ export async function http<T>(requestConfig: AxiosRequestConfig<T>) {
     );
 
     // refresh token
-    axios.interceptors.response.use(
+    explorer.interceptors.response.use(
       (response) => response,
       async (error) => {
         const originalRequest = error.config;
@@ -76,7 +82,7 @@ export async function http<T>(requestConfig: AxiosRequestConfig<T>) {
           originalRequest._retry = true;
           const value = await refresh();
           if (value) {
-            return axios(originalRequest);
+            return explorer(originalRequest);
           }
         }
         return Promise.reject(error);
@@ -87,9 +93,12 @@ export async function http<T>(requestConfig: AxiosRequestConfig<T>) {
       requestConfig.url === 'auth/sign-in' ||
       requestConfig.url === 'auth/sign-up'
     ) {
-      const response = await axios.request(requestConfig);
+      const response = await explorer.request(requestConfig);
 
       if (response.status === 201) {
+        setToken(response.data.data.accessToken);
+        setRefreshToken(response.data.data.refreshToken);
+        setExpiresIn(response.data.data.expiresIns);
         return response.data;
       } else {
         throw new Error(response.statusText);
@@ -104,7 +113,7 @@ export async function http<T>(requestConfig: AxiosRequestConfig<T>) {
       Authorization: `Bearer ${token}`,
     };
 
-    const response = await axios.request(requestConfig);
+    const response = await explorer.request(requestConfig);
 
     if (response.status === 200) {
       return response.data;

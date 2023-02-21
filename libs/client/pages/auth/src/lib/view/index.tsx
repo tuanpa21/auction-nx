@@ -41,12 +41,14 @@ function AuthView({
             onChange={handleChange}
             value={values.password}
             touched={touched.password}
-            errors={errors.email}
+            errors={errors.password}
           />
           <div className=" flex w-full flex-col items-center justify-center">
             {type === 'login' && (
               <>
-                <Button isLoading={isLoading}>Login</Button>
+                <Button isLoading={isLoading} type="submit">
+                  Login
+                </Button>
                 <a href="/register" className="mt-3  underline">
                   Register
                 </a>
@@ -54,7 +56,9 @@ function AuthView({
             )}
             {type === 'register' && (
               <>
-                <Button isLoading={isLoading}>Register</Button>
+                <Button isLoading={isLoading} type="submit">
+                  Register
+                </Button>
                 <a href="/login" className="mt-3 underline">
                   Login
                 </a>
