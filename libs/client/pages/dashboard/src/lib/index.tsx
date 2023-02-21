@@ -1,4 +1,4 @@
-import { DashboardView } from './view';
+import DashboardView from './view';
 import { useDashboardData } from './data';
 
 export default function Dashboard() {

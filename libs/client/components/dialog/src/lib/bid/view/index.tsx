@@ -2,7 +2,7 @@ import { IBid } from '../interface';
 
 import { Transition, Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { Button } from '@auction-nx/client/components/button';
 import { Input } from '@auction-nx/client/components/form';
 
@@ -114,4 +114,4 @@ function BidItem({
   );
 }
 
-export default BidItem;
+export default memo(BidItem);

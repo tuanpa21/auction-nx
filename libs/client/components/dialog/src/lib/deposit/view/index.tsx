@@ -1,5 +1,5 @@
 import { Transition, Dialog } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 import { Button } from '@auction-nx/client/components/button';
@@ -114,4 +114,4 @@ function DepositDialog({
   );
 }
 
-export default DepositDialog;
+export default memo(DepositDialog);

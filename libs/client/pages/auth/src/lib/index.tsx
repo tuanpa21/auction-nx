@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { useAuthData } from './data/index';
-import { AuthView } from './view/index';
+import AuthView from './view/index';
 
 export default function Auth() {
   const { type } = useParams();

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { BaseLayout } from '@auction-nx/client/components/layout';
 import { Tab } from '@headlessui/react';
 import { createColumnHelper } from '@tanstack/react-table';
@@ -10,7 +10,7 @@ import { classNames } from '@auction-nx/client/utils';
 
 const columnHelper = createColumnHelper<Bid>();
 
-export function DashboardView() {
+function DashboardView() {
   const columns = useMemo(
     () => [
       columnHelper.accessor('id', {
@@ -164,3 +164,5 @@ export function DashboardView() {
     </BaseLayout>
   );
 }
+
+export default memo(DashboardView);

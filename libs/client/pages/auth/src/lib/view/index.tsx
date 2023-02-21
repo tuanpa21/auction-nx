@@ -1,8 +1,9 @@
 import { Button } from '@auction-nx/client/components/button';
 import { Input } from '@auction-nx/client/components/form';
 import { IAuthProps } from '../interface';
+import { memo } from 'react';
 
-export function AuthView({
+function AuthView({
   type,
   touched,
   values,
@@ -65,3 +66,5 @@ export function AuthView({
     </div>
   );
 }
+
+export default memo(AuthView);

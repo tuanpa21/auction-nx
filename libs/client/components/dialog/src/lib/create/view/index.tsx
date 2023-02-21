@@ -1,6 +1,6 @@
 import { Transition, Dialog } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Fragment } from 'react';
+import { Fragment, memo } from 'react';
 
 import { Button } from '@auction-nx/client/components/button';
 import { Input } from '@auction-nx/client/components/form';
@@ -137,4 +137,4 @@ function CreateItemDialog({
   );
 }
 
-export default CreateItemDialog;
+export default memo(CreateItemDialog);
