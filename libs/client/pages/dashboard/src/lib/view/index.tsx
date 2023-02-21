@@ -4,7 +4,7 @@ import { memo, useMemo, useState } from 'react';
 import { BaseLayout } from '@auction-nx/client/components/layout';
 import { Tab } from '@headlessui/react';
 import { createColumnHelper } from '@tanstack/react-table';
-import { Bid } from '@auction-nx/client/data';
+import { Bid } from '../data/utils';
 import { Button } from '@auction-nx/client/components/button';
 import { classNames } from '@auction-nx/client/utils';
 
