@@ -2,7 +2,6 @@ import { AxiosError, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { getAPIEndpoint } from './env';
 
-
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' '); // TODO: classnames
 }
@@ -41,91 +40,88 @@ interface IConfig<T> extends AxiosRequestConfig<T> {
   data?: T;
 }
 
-export async function http<T>(requestConfig: AxiosRequestConfig<T>){
-
+export async function http<T>(requestConfig: AxiosRequestConfig<T>) {
   try {
-
     axios.create({
       baseURL: getAPIEndpoint(),
       headers: {
         'Content-Type': 'application/json',
       },
-    })
+    });
     // add token to request
-  axios.interceptors.request.use(
-    async (config) => {
-      //check if token has expired
-      if(getExpiresIn() && new Date().getTime() > parseInt(getExpiresIn()!)){
-        await refresh();
-      }
-      const token = getToken();
-      config.headers.Authorization = `Bearer ${token}`;
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
-
-  // refresh token
-  axios.interceptors.response.use(
-    (response) => response,
-    async (error) => {
-      const originalRequest = error.config;
-      if (error.response.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-        const value = await refresh();
-        if(value){
-          return axios(originalRequest);
+    axios.interceptors.request.use(
+      async (config) => {
+        //check if token has expired
+        if (
+          getExpiresIn() &&
+          new Date().getTime() > parseInt(getExpiresIn()!)
+        ) {
+          await refresh();
         }
-        
+        const token = getToken();
+        config.headers.Authorization = `Bearer ${token}`;
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
       }
-      return Promise.reject(error);
+    );
+
+    // refresh token
+    axios.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        const originalRequest = error.config;
+        if (error.response.status === 401 && !originalRequest._retry) {
+          originalRequest._retry = true;
+          const value = await refresh();
+          if (value) {
+            return axios(originalRequest);
+          }
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    if (
+      requestConfig.url === 'auth/sign-in' ||
+      requestConfig.url === 'auth/sign-up'
+    ) {
+      const response = await axios.request(requestConfig);
+
+      if (response.status === 201) {
+        return response.data;
+      } else {
+        throw new Error(response.statusText);
+      }
     }
-  );
 
-  if(requestConfig.url === 'auth/sign-in' || requestConfig.url === 'auth/sign-up'){
-    const response = await axios.request(requestConfig);  
+    // get token from local storage
+    const token = localStorage.getItem('token');
 
-    if(response.status === 201){
-      return response.data
+    // add token to request
+    requestConfig.headers = {
+      Authorization: `Bearer ${token}`,
+    };
+
+    const response = await axios.request(requestConfig);
+
+    if (response.status === 200) {
+      return response.data;
     } else {
-      throw new Error(response.statusText)
+      throw new Error(response.statusText);
     }
-  }
-
-  // get token from local storage
-  const token = localStorage.getItem('token');
-
-
-  // add token to request
-  requestConfig.headers = {
-    Authorization: `Bearer ${token}`,
-  };
-
-
-  const response = await axios.request(requestConfig);  
-
-  if(response.status === 200){
-    return response.data
-  } else {
-    throw new Error(response.statusText)
-  }
-
   } catch (error) {
     console.log(error);
 
-    if(error instanceof AxiosError){
-      if(error.response){
-        throw new Error(error.response.data.message)
+    if (error instanceof AxiosError) {
+      if (error.response) {
+        throw new Error(error.response.data.message);
       }
     }
 
-    if(error instanceof Error) throw new Error(error.message)
-
+    if (error instanceof Error) throw new Error(error.message);
   }
-  
-
 }
 
 const refresh = async () => {
@@ -135,10 +131,10 @@ const refresh = async () => {
   });
   if (response.status === 201) {
     setToken(response.data.accessToken);
-    setRefreshToken (response.data.refreshToken);
+    setRefreshToken(response.data.refreshToken);
     setExpiresIn(response.data.expiresIn);
 
-    return true
+    return true;
   }
-  return false
-}
+  return false;
+};

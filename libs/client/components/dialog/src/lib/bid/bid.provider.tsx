@@ -1,6 +1,13 @@
 import { ReactNode, createContext, useContext } from 'react';
 import { Account } from '@auction-nx/client/data';
-import { ColumnDef, Table, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table';
+import {
+  ColumnDef,
+  Table,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from '@tanstack/react-table';
 import { useQuery } from '@tanstack/react-query';
 import { http } from '@auction-nx/client/utils';
 
@@ -35,22 +42,26 @@ interface BidProviderProps<T> {
   parseData?: (data: unknown) => T[];
 }
 
-export default function BidProvider<T>({ children, account, columns, dataKey }: BidProviderProps<T>) {
+export default function BidProvider<T>({
+  children,
+  account,
+  columns,
+  dataKey,
+}: BidProviderProps<T>) {
   //TODO: query auctions
   // TODO: query user account
-  
+
   const { data, isSuccess, isLoading, isError, error, refetch } = useQuery({
-    queryKey:[dataKey],
+    queryKey: [dataKey],
     queryFn: async () => {
       const response = await http<T>({
         method: 'GET',
-        url: `/auctions`
+        url: `/auctions`,
       });
 
       return response;
-    }
-  })
-
+    },
+  });
 
   const table = useReactTable<T>({
     data,
