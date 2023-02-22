@@ -7,15 +7,11 @@ import ErrorPage from '../error';
 export function App() {
   return (
     <>
-    <Routes>
-        <Route
-          path="/"
-          element={<Dashboard />}
-          errorElement={<ErrorPage /> }
-        />
+      <Routes>
+        <Route path="/" element={<Dashboard />} errorElement={<ErrorPage />} />
+        {/*For login/register*/}
         <Route path="/:type" element={<Auth />} errorElement={<ErrorPage />} />
       </Routes>
-   
     </>
   );
 }
