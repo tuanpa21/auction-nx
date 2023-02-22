@@ -7,7 +7,7 @@ import { classNames, changeState } from '@auction-nx/client/utils';
 
 import { MenuProps } from './interface';
 import {
-  CreateItemDialog,
+  CreateDialog,
   DepositDialog,
 } from '@auction-nx/client/components/dialog';
 
@@ -132,7 +132,7 @@ export default function MenuPopUp({ items }: MenuProps) {
         <DepositDialog open={open.open} setOpen={setOpen} />
       )}
       {open.id === 'create' && (
-        <CreateItemDialog open={open.open} setOpen={setOpen} />
+        <CreateDialog open={open.open} setOpen={setOpen} />
       )}
     </>
   );

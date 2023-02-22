@@ -1,12 +1,21 @@
 /* eslint-disable-next-line */
-export interface ClientComponentsTableProps {}
+export default function AppTable() {
+  //TODO: Provider
 
-export function ClientComponentsTable(props: ClientComponentsTableProps) {
   return (
-    <div>
-      <h1>Welcome to ClientComponentsTable!</h1>
+    <div className=" min-h-fit w-full overflow-auto rounded-xl bg-theadbg px-2 py-1">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
-
-export default ClientComponentsTable;

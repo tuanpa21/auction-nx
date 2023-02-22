@@ -9,6 +9,6 @@ function checkEnv(env: string | undefined, name: string) {
 }
 
 export function getAPIEndpoint() {
-  const value = process.env['URL_API'];
-  return checkEnv(value, 'URL_API');
+  const value = import.meta.env.VITE_API_URL;
+  return checkEnv(value, 'VITE_API_URL');
 }
