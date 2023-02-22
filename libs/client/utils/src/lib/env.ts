@@ -10,6 +10,5 @@ function checkEnv(env: string | undefined, name: string) {
 
 export function getAPIEndpoint() {
   const value = import.meta.env.VITE_API_URL;
-  console.log(value);
   return checkEnv(value, 'VITE_API_URL');
 }

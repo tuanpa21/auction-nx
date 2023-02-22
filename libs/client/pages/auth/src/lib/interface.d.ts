@@ -12,3 +12,21 @@ export interface IAuthProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement> | undefined) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement> | undefined) => void;
 }
+
+export interface IAuthResponse {
+  data: {
+    accessToken: string;
+    refreshToken: string;
+    expireIns: number;
+    user: {
+      id: string;
+      email: string;
+      name: string;
+      role: string;
+      gender: string;
+      status: string;
+      createdAt: string;
+      updatedAt: string;
+    };
+  }
+}

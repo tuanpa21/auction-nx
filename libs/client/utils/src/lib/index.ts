@@ -42,11 +42,7 @@ export function removeToken() {
   localStorage.removeItem('expiresIn');
 }
 
-interface IConfig<T> extends AxiosRequestConfig<T> {
-  data?: T;
-}
-
-export async function http<T>(requestConfig: AxiosRequestConfig<T>) {
+export async function http<T, K>(requestConfig: AxiosRequestConfig<T>) {
   try {
     const explorer = axios.create({
       baseURL: getAPIEndpoint(),
@@ -96,36 +92,31 @@ export async function http<T>(requestConfig: AxiosRequestConfig<T>) {
       const response = await explorer.request(requestConfig);
 
       if (response.status === 201) {
-        setToken(response.data.data.accessToken);
-        setRefreshToken(response.data.data.refreshToken);
-        setExpiresIn(response.data.data.expiresIns);
-        return response.data;
+        return response.data as K;
       } else {
         throw new Error(response.statusText);
       }
     }
 
-    // get token from local storage
-    const token = localStorage.getItem('token');
-
     // add token to request
     requestConfig.headers = {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${getToken()}`,
     };
 
     const response = await explorer.request(requestConfig);
 
     if (response.status === 200) {
-      return response.data;
+      return response.data as K;
     } else {
       throw new Error(response.statusText);
     }
   } catch (error) {
     console.log(error);
-
     if (error instanceof AxiosError) {
       if (error.response) {
-        throw new Error(error.response.data.message);
+        throw new Error(error.response.data.error.message);
+      } else {
+        throw new Error(error.message);
       }
     }
 

@@ -1,10 +1,16 @@
-import { http } from '@auction-nx/client/utils';
+import {
+  http,
+  setExpiresIn,
+  setRefreshToken,
+  setToken,
+} from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Authentication, authenticationSchema } from './utils';
 import { useNavigate } from 'react-router-dom';
+import { IAuthResponse } from '../interface';
 
 type TAuthType = 'login' | 'register';
 
@@ -24,7 +30,7 @@ export function useAuthData(type?: string) {
       };
       if (mutationType === 'register') reqData.name = 'test';
 
-      return http({
+      return http<string, IAuthResponse>({
         method: 'post',
         url: mutationType === 'login' ? 'auth/sign-in' : 'auth/sign-up',
         data: JSON.stringify({
@@ -33,13 +39,21 @@ export function useAuthData(type?: string) {
       });
     },
     onSuccess(data, variables, context) {
-      console.log(data);
-      //TODO: redirect to dashboard
-      toast.success('Successful');
-      navigate('/');
+        
+      if (data?.data) {
+        setToken(data?.data.accessToken);
+        setRefreshToken(data?.data.refreshToken);
+        setExpiresIn(data?.data.expireIns.toString());
+        //TODO: redirect to dashboard
+        toast.success('Successful');
+        navigate('/');
+      }
     },
     onError(error, variables, context) {
-      console.log(error);
+        if(error instanceof Error){
+            toast.error(error.message);
+            return;
+        }
       toast.error(`An error occurred`);
     },
   });
