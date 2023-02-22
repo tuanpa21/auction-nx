@@ -1,4 +1,4 @@
-import { getAPIEndpoint } from '@auction-nx/client/utils';
+import { getAPIEndpoint, http } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -9,12 +9,13 @@ export default function useDepositData(
 ) {
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TDepositItem }) => {
-      //   return fetch(`${getAPIEndpoint()}/`, {
-      //     method: 'POST',
-      //     body: JSON.stringify({
-      //       ...data,
-      //     }),
-      //   });
+        return http<string, IAuthResponse>({
+            method: 'post',
+            url: mutationType === 'login' ? 'auth/sign-in' : 'auth/sign-up',
+            data: JSON.stringify({
+              ...reqData,
+            }),
+          });
       return fetch('https://jsonplaceholder.typicode.com/todos/1');
     },
     onSuccess(data, variables, context) {

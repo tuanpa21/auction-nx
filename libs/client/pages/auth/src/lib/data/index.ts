@@ -3,6 +3,7 @@ import {
   setExpiresIn,
   setRefreshToken,
   setToken,
+  setUser,
 } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
@@ -44,6 +45,7 @@ export function useAuthData(type?: string) {
         setToken(data?.data.accessToken);
         setRefreshToken(data?.data.refreshToken);
         setExpiresIn(data?.data.expireIns.toString());
+        setUser(data?.data.user);
         //TODO: redirect to dashboard
         toast.success('Successful');
         navigate('/');

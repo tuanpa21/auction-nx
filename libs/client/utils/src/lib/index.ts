@@ -36,6 +36,17 @@ export function getExpiresIn() {
   return localStorage.getItem('expiresIn');
 }
 
+export function setUser(user: any) {
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
+export function getUser() {
+  const user = localStorage.getItem('user');
+  if(user)
+    return JSON.parse(user);
+  return null;
+}
+
 export function removeToken() {
   localStorage.removeItem('token');
   localStorage.removeItem('refreshToken');
