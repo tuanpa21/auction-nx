@@ -12,7 +12,7 @@ export default function useDepositData(
         //TODO: remove any type
         return http<string, any >({
             method: 'post',
-            url: `wallets/${}/deposits`,
+            // url: `wallets/${}/deposits`,
             data: JSON.stringify(data),
           });
     },
