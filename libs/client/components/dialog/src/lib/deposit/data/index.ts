@@ -1,4 +1,4 @@
-import { getAPIEndpoint, http } from '@auction-nx/client/utils';
+import { getAPIEndpoint, getUser, http } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -9,14 +9,12 @@ export default function useDepositData(
 ) {
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TDepositItem }) => {
-        return http<string, IAuthResponse>({
+        //TODO: remove any type
+        return http<string, any >({
             method: 'post',
-            url: mutationType === 'login' ? 'auth/sign-in' : 'auth/sign-up',
-            data: JSON.stringify({
-              ...reqData,
-            }),
+            url: `wallets/${getUser().id}/deposits`,
+            data: JSON.stringify(data),
           });
-      return fetch('https://jsonplaceholder.typicode.com/todos/1');
     },
     onSuccess(data, variables, context) {
       toast.success('Successful');
@@ -26,7 +24,11 @@ export default function useDepositData(
       });
     },
     onError(error, variables, context) {
-      toast.error('An error occurred');
+        if(error instanceof Error){
+            toast.error(error.message);
+            return;
+        }
+      toast.error(`An error occurred`);
     },
   });
   const onSubmit = (values: TDepositItem) => {
