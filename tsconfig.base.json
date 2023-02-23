@@ -47,7 +47,8 @@
       ],
       "@auction-nx/client/utils": ["libs/client/utils/src/index.ts"],
       "@auction-nx/server/common": ["libs/server/common/src/index.ts"],
-      "@auction-nx/server/guard": ["libs/server/guard/src/index.ts"]
+      "@auction-nx/server/guard": ["libs/server/guard/src/index.ts"],
+      "@auction-nx/server/prisma": ["libs/server/prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
