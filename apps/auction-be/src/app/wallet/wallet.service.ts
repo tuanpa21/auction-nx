@@ -1,17 +1,23 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '@jitera/prisma';
 import { ConfigService } from '@nestjs/config';
-import { IUserJwt } from '@jitera/common';
+import { IUserJwt } from '@auction-nx/server/common';
 import { WalletDepositDto } from './wallet.validation';
 
 @Injectable()
 export class WalletService {
   private readonly logger = new Logger(WalletService.name);
 
-  constructor(private readonly config: ConfigService, private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly config: ConfigService,
+    private readonly prisma: PrismaService
+  ) {}
 
   async update(info: IUserJwt, id: string, data: WalletDepositDto) {
-    const user = await this.prisma.user.findUnique({ where: { id: info.sub }, include: { wallet: true } });
+    const user = await this.prisma.user.findUnique({
+      where: { id: info.sub },
+      include: { wallet: true },
+    });
     if (!user) throw new BadRequestException('User not found');
     if (!user.wallet) {
       return this.create(info, data);
@@ -24,7 +30,10 @@ export class WalletService {
   }
 
   async create(info: IUserJwt, data: WalletDepositDto) {
-    const user = await this.prisma.user.findUnique({ where: { id: info.sub }, include: { wallet: true } });
+    const user = await this.prisma.user.findUnique({
+      where: { id: info.sub },
+      include: { wallet: true },
+    });
     if (!user) throw new BadRequestException('User not found');
     if (user.wallet) {
       throw new BadRequestException('User had wallet already');

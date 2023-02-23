@@ -1,5 +1,5 @@
-import { AppException, IAppError } from '@jitera/common'
-import { HttpStatus } from '@nestjs/common'
+import { AppException, IAppError } from '@auction-nx/server/common';
+import { HttpStatus } from '@nestjs/common';
 
 export enum AuthCode {
   EMAIL_NOT_FOUND = 'EMAIL_NOT_FOUND',
@@ -23,10 +23,10 @@ export const AUTH_ERROR: Record<AuthCode, IAppError> = {
     message: `Your new password duplicated previous password`,
     status: HttpStatus.BAD_REQUEST,
   },
-}
+};
 
 export class AuthException extends AppException {
   constructor(code: keyof typeof AuthCode, message?: string) {
-    super(code, message, AUTH_ERROR)
+    super(code, message, AUTH_ERROR);
   }
 }

@@ -1,21 +1,27 @@
-import { IJwtResponse } from '@jitera/guard'
-import { IsSwaggerNumber, IsSwaggerObject, IsSwaggerString, Role, TTL } from '@jitera/common'
-import { User } from '@prisma/client'
+import { IJwtResponse } from '@jitera/guard';
+import {
+  IsSwaggerNumber,
+  IsSwaggerObject,
+  IsSwaggerString,
+  Role,
+  TTL,
+} from '@auction-nx/server/common';
+import { User } from '@prisma/client';
 
 export class AuthCheckExistRes {
   @IsSwaggerString({ default: 'This email is valid' })
-  message: string
+  message: string;
 }
 
 export class AuthSignInRes implements IJwtResponse<User> {
   @IsSwaggerString({ example: 'accessToken' })
-  accessToken: string
+  accessToken: string;
 
   @IsSwaggerString({ example: 'refreshToken' })
-  refreshToken: string
+  refreshToken: string;
 
   @IsSwaggerNumber({ example: TTL.ONE_DAY })
-  expireIns: number
+  expireIns: number;
 
   @IsSwaggerObject(
     {},
@@ -32,7 +38,7 @@ export class AuthSignInRes implements IJwtResponse<User> {
       } as Omit<User, 'password'>,
     }
   )
-  user: User
+  user: User;
 }
 
 export class AuthSignUpRes extends AuthSignInRes {}

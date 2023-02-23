@@ -1,19 +1,24 @@
-import { IsSwaggerDate, IsSwaggerNumber, IsSwaggerString, PaginationQueryDto } from '@jitera/common'
-import { PartialType } from '@nestjs/mapped-types'
-import { MinDate } from 'class-validator'
+import {
+  IsSwaggerDate,
+  IsSwaggerNumber,
+  IsSwaggerString,
+  PaginationQueryDto,
+} from '@auction-nx/server/common';
+import { PartialType } from '@nestjs/mapped-types';
+import { MinDate } from 'class-validator';
 
 export class ItemQueryDto extends PaginationQueryDto {}
 
 export class ItemCreateDto {
   @IsSwaggerString({ maxLength: 255 })
-  name: string
+  name: string;
 
   @IsSwaggerNumber({ minimum: 0 })
-  cost: number
+  cost: number;
 
   @IsSwaggerDate({})
   @MinDate(new Date())
-  expiredAt: Date
+  expiredAt: Date;
 }
 
 export class ItemUpdateDto extends PartialType(ItemCreateDto) {}
