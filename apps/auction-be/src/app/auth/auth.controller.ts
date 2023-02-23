@@ -3,7 +3,7 @@ import {
   IsAuthController,
   JwtAtGuard,
   JwtRtGuard,
-} from '@jitera/guard';
+} from '@auction-nx/server/guard';
 import { ApiPassedRes, IReply, IRequest } from '@auction-nx/server/common';
 import {
   Body,

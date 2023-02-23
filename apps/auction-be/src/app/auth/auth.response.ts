@@ -1,4 +1,4 @@
-import { IJwtResponse } from '@jitera/guard';
+import { IJwtResponse } from '@auction-nx/server/guard';
 import {
   IsSwaggerNumber,
   IsSwaggerObject,

@@ -1,4 +1,9 @@
-import { GuardCode, GuardException, GuardUtil, JwtCache } from '@jitera/guard';
+import {
+  GuardCode,
+  GuardException,
+  GuardUtil,
+  JwtCache,
+} from '@auction-nx/server/guard';
 import { IUserJwt, Role } from '@auction-nx/server/common';
 import { CACHE_MANAGER, Inject, Injectable, Logger } from '@nestjs/common';
 import { AuthProvider, User } from '@prisma/client';

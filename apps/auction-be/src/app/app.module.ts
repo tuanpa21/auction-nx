@@ -6,7 +6,7 @@ import { CacheModule, Module } from '@nestjs/common';
 import { CommonModule } from '@auction-nx/server/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configuration } from './app.config';
-import { GuardModule } from '@jitera/guard';
+import { GuardModule } from '@auction-nx/server/guard';
 import { PrismaModule } from '@jitera/prisma';
 import { UserModule } from './user/user.module';
 import type { RedisClientOptions } from 'redis';

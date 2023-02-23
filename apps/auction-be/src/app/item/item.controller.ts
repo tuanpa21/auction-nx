@@ -3,7 +3,7 @@ import {
   ApiPaginateRes,
   ApiPassedRes,
 } from '@auction-nx/server/common';
-import { IsAuthController } from '@jitera/guard';
+import { IsAuthController } from '@auction-nx/server/guard';
 import {
   Body,
   Delete,

@@ -1,5 +1,5 @@
 import { IRequest } from '@auction-nx/server/common';
-import { IsAuthController } from '@jitera/guard';
+import { IsAuthController } from '@auction-nx/server/guard';
 import { Get, Logger, Req } from '@nestjs/common';
 import { UserService } from './user.service';
 
