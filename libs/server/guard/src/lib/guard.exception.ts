@@ -1,5 +1,5 @@
-import { HttpStatus } from '@nestjs/common'
-import { AppException, IAppError } from '@jitera/common'
+import { HttpStatus } from '@nestjs/common';
+import { AppException, IAppError } from '@auction-nx/server/common';
 
 export enum GuardCode {
   FORBIDDEN_RESOURCE = 'FORBIDDEN_RESOURCE',
@@ -71,10 +71,10 @@ export const GUARD_ERROR: Record<GuardCode, IAppError> = {
     message: `Your account has been deactivate by admin. Please contact him to know reason`,
     status: HttpStatus.FORBIDDEN,
   },
-}
+};
 
 export class GuardException extends AppException {
   constructor(code: keyof typeof GuardCode, message?: string) {
-    super(code, message, GUARD_ERROR)
+    super(code, message, GUARD_ERROR);
   }
 }

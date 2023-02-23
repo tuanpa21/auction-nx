@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@jitera/prisma';
+import { PrismaService } from '@auction-nx/server/prisma';
 import { ConfigService } from '@nestjs/config';
 import { IUserJwt } from '@auction-nx/server/common';
 

@@ -1,6 +1,6 @@
 import { createPaginator } from 'prisma-pagination';
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '@jitera/prisma';
+import { PrismaService } from '@auction-nx/server/prisma';
 import { ConfigService } from '@nestjs/config';
 import { IUserJwt } from '@auction-nx/server/common';
 import { ItemCreateDto, ItemQueryDto, ItemUpdateDto } from './item.validation';

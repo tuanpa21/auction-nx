@@ -1,12 +1,14 @@
-import { Env, TTL } from '@jitera/common'
-import { IConfigGuard } from './guard.interface'
+import { Env, TTL } from '@auction-nx/server/common';
+import { IConfigGuard } from './guard.interface';
 
 export const guardConfig = (): IConfigGuard => {
   return {
     auth: {
       jwt: {
         secretKey: process.env.JWT_SECRET_KEY,
-        expireIns: process.env.JWT_EXPIRE_INS ? parseInt(process.env.JWT_EXPIRE_INS) : TTL.ONE_HOUR,
+        expireIns: process.env.JWT_EXPIRE_INS
+          ? parseInt(process.env.JWT_EXPIRE_INS)
+          : TTL.ONE_HOUR,
         refreshSecretKey: process.env.JWT_REFRESH_SECRET_KEY,
         refreshExpireIns: process.env.JWT_REFRESH_EXPIRE_INS
           ? parseInt(process.env.JWT_REFRESH_EXPIRE_INS)
@@ -20,5 +22,5 @@ export const guardConfig = (): IConfigGuard => {
       expires: null,
       httpOnly: process.env.NODE_ENV === Env.PRODUCTION ? true : false,
     },
-  }
-}
+  };
+};

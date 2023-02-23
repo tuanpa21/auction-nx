@@ -14,7 +14,7 @@ import {
   AuthSignInDto,
   AuthSignUpDto,
 } from './auth.validation';
-import { PrismaService } from '@jitera/prisma';
+import { PrismaService } from '@auction-nx/server/prisma';
 
 @Injectable()
 export class AuthService {
