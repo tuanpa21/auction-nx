@@ -83,10 +83,10 @@ export class ItemService {
           userId: info.sub
         },
       }),
-      this.prisma.wallet.update({
-        where: { userId: info.sub },
-        data: { amount: { decrement: data.cost } },
-      }),
+      // this.prisma.wallet.update({
+      //   where: { userId: info.sub },
+      //   data: { amount: { decrement: data.cost } },
+      // }),
     ]);
     return result;
   }
