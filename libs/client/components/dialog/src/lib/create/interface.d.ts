@@ -7,6 +7,11 @@ export interface ICreate extends IProps {
   touched: FormikTouched<TCreateItem>;
   values: TCreateItem;
   errors: FormikErrors<TCreateItem>;
+  setFieldValue: (
+    field: string,
+    value: any,
+    shouldValidate?: boolean | undefined
+  ) => Promise<void> | Promise<FormikErrors<TCreateItem>>;
   handleChange: (e: React.ChangeEvent<HTMLInputElement> | undefined) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement> | undefined) => void;
 }

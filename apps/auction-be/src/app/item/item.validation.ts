@@ -21,4 +21,12 @@ export class ItemCreateDto {
   expiredAt: Date;
 }
 
+export class ItemAuctionCreateDto {
+  @IsSwaggerString({ maxLength: 255 })
+  itemId: string;
+
+  @IsSwaggerNumber({ minimum: 0 })
+  cost: number;
+}
+
 export class ItemUpdateDto extends PartialType(ItemCreateDto) {}

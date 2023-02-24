@@ -13,6 +13,7 @@ function CreateItemDialog({
   values,
   errors,
   handleChange,
+  setFieldValue,
   handleSubmit,
   isLoading,
 }: ICreate) {
@@ -25,6 +26,7 @@ function CreateItemDialog({
           setOpen({
             id: '',
             open: false,
+            type: '',
           });
         }}
       >
@@ -66,6 +68,7 @@ function CreateItemDialog({
                       setOpen({
                         id: '',
                         open: false,
+                        type: '',
                       });
                     }}
                   />
@@ -102,7 +105,9 @@ function CreateItemDialog({
                         placeholder="time window"
                         id="expired_at"
                         name="expired_at"
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          setFieldValue('expiredAt', e.target.value);
+                        }}
                         value={values.expiredAt}
                         touched={touched.expiredAt}
                         errors={errors.expiredAt}
@@ -117,6 +122,7 @@ function CreateItemDialog({
                           setOpen({
                             id: '',
                             open: false,
+                            type: '',
                           });
                         }}
                       >

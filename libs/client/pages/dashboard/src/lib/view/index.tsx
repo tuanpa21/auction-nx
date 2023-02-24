@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { BaseLayout } from '@auction-nx/client/components/layout';
 import { Tab } from '@headlessui/react';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Bid } from '../data/utils';
 import { classNames } from '@auction-nx/client/utils';
-import { BidProvider } from '@auction-nx/client/components/dialog';
+import { AuctionDialog, BidProvider } from '@auction-nx/client/components/dialog';
 import { AppTable } from '@auction-nx/client/components/table';
 import { Button } from '@auction-nx/client/components/button';
 import { BidDialog } from '@auction-nx/client/components/dialog';
@@ -19,8 +19,8 @@ function DashboardView({
   setOpen,
 }: {
   tabs: string[];
-  open: { open: boolean; id: string };
-  setOpen: ({ open, id }: { open: boolean; id: string }) => void;
+  open: { open: boolean; id: string, type: string };
+  setOpen: ({ open, id }: { open: boolean; id: string, type: string }) => void;
 }) {
   const columns = useMemo(
     () => [
@@ -49,10 +49,23 @@ function DashboardView({
         cell: (props) => (
           <Button
             onClick={() => {
-              setOpen({ open: true, id: props.row.original.id || '' });
+              setOpen({ open: true, id: props.row.original.id || '', type: 'bid' });
             }}
           >
             Bid
+          </Button>
+        ),
+      }),
+
+      columnHelper.display({
+        header: 'Auctions',
+        cell: (props) => (
+          <Button
+            onClick={() => {
+              setOpen({ open: true, id: props.row.original.id || '', type: 'auctions' });
+            }}
+          >
+            View
           </Button>
         ),
       }),
@@ -106,7 +119,8 @@ function DashboardView({
           </Tab.Group>
         </div>
       </BaseLayout>
-      <BidDialog setOpen={setOpen} open={open} />
+     {open.type === 'bid' && <BidDialog setOpen={setOpen} open={open} />}
+     {open.type === 'auctions' && <AuctionDialog setOpen={setOpen} open={open} />}
     </BidProvider>
   );
 }

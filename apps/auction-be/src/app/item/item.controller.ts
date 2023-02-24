@@ -18,7 +18,7 @@ import {
 } from '@nestjs/common';
 import { ItemModelRes } from './item.response';
 import { ItemService } from './item.service';
-import { ItemCreateDto, ItemQueryDto, ItemUpdateDto } from './item.validation';
+import { ItemAuctionCreateDto, ItemCreateDto, ItemQueryDto, ItemUpdateDto } from './item.validation';
 
 @IsAuthController('items', 'items')
 export class ItemController {
@@ -42,6 +42,17 @@ export class ItemController {
   @ApiPassedRes(ItemModelRes, HttpStatus.CREATED)
   create(@Req() req: IRequest, @Body() data: ItemCreateDto) {
     return this.itemService.create(req.user, data);
+  }
+
+  @Post('auction')
+  @ApiPassedRes(ItemModelRes, HttpStatus.CREATED)
+  createItemAuction(@Req() req: IRequest, @Body() data: ItemAuctionCreateDto) {
+    return this.itemService.createItemAuction(req.user, data);
+  }
+
+  @Get('auctions/:itemId')
+  getAllAuction(@Req() req: IRequest, @Param('itemId') itemId: string) {
+    return this.itemService.getAllAuction(itemId);
   }
 
   @Put(':id')

@@ -16,6 +16,7 @@ export default function MenuPopUp({ items }: MenuProps) {
   const [open, setOpen] = useState({
     id: '',
     open: false,
+    type: '',
   });
   const [openState, setOpenState] = useState(false);
   const location = useLocation();
@@ -98,6 +99,7 @@ export default function MenuPopUp({ items }: MenuProps) {
                               setOpen({
                                 id: item.id,
                                 open: true,
+                                type: '',
                               });
                             }}
                             aria-current={
@@ -128,8 +130,8 @@ export default function MenuPopUp({ items }: MenuProps) {
         )}
       </Menu>
 
-      {open.id === 'deposit' && <DepositDialog open={open} setOpen={setOpen} />}
-      {open.id === 'create' && <CreateDialog open={open} setOpen={setOpen} />}
+      {open.type === 'deposit' && <DepositDialog open={open} setOpen={setOpen} />}
+      {open.type === 'create' && <CreateDialog open={open} setOpen={setOpen} />}
     </>
   );
 }

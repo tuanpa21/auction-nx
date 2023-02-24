@@ -25,6 +25,7 @@ function BidItem({
           setOpen({
             id: '',
             open: false,
+            type: '',
           });
         }}
       >
@@ -64,8 +65,9 @@ function BidItem({
                     type="button"
                     onClick={() => {
                       setOpen({
-                        id: '',
+                        id: 'bid',
                         open: false,
+                        type: '',
                       });
                     }}
                   />
@@ -77,12 +79,12 @@ function BidItem({
                         label="Bid Price"
                         type="number"
                         placeholder="price"
-                        id="price"
-                        name="price"
+                        id="cost"
+                        name="cost"
                         onChange={handleChange}
-                        value={values.price}
-                        touched={touched.price}
-                        errors={errors.price}
+                        value={values.cost}
+                        touched={touched.cost}
+                        errors={errors.cost}
                       />
                     </div>
 
@@ -92,8 +94,9 @@ function BidItem({
                         className="mx-5 mt-10"
                         onClick={() => {
                           setOpen({
-                            id: '',
+                            id: 'bid',
                             open: false,
+                            type: '',
                           });
                         }}
                       >
