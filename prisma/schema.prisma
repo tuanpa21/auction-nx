@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Auth {
+  userId       String       @id @map("user_id")
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider     AuthProvider @default(NORMAL)
+  accessToken  String       @map("access_token")
+  refreshToken String       @map("refresh_token")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt() @map("updated_at")
+
+  @@unique([userId, provider])
+  @@map("auth")
+}
+
+model User {
+  id        String        @id @default(cuid()) @db.VarChar(36)
+  name      String        @db.VarChar(255)
+  role      String        @default("USER")
+  email     String        @unique @db.VarChar(255)
+  password  String        @db.VarChar(255)
+  status    Status        @default(ACTIVE)
+  auth      Auth?
+  wallet    Wallet?
+  items     Item[]
+  auctions  ItemAuction[]
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt() @map("updated_at")
+
+  @@map("users")
+}
+
+model Wallet {
+  id     String @id @default(cuid()) @db.VarChar(36)
+  amount Float  @default(0)
+  userId String @unique @map("user_id")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("wallets")
+}
+
+model Item {
+  id        String        @id @default(cuid()) @db.VarChar(36)
+  name      String        @db.VarChar(255)
+  cost      Float
+  status    ItemStatus    @default(ON_GOING)
+  auctions  ItemAuction[]
+  userId    String        @map("user_id")
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiredAt DateTime      @map("expired_at")
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt() @map("updated_at")
+
+  @@map("items")
+}
+
+model ItemAuction {
+  id        String   @id @default(cuid()) @db.VarChar(36)
+  itemId    String   @map("item_id")
+  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cost      Float
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt() @map("updated_at")
+
+  @@index([createdAt(sort: Desc)])
+  @@map("items_auctions")
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  DEACTIVE
+}
+
+enum ItemStatus {
+  ON_GOING
+  COMPLETE
+}
+
+enum AuthProvider {
+  NORMAL
+  GOOGLE
+  GITHUB
+}
