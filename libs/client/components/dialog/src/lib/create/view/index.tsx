@@ -17,7 +17,7 @@ function CreateItemDialog({
   isLoading,
 }: ICreate) {
   return (
-    <Transition appear show={open} as={Fragment}>
+    <Transition appear show={open.open} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-10"
@@ -89,30 +89,30 @@ function CreateItemDialog({
                         label="Start Price"
                         type="number"
                         placeholder="start price"
-                        id="start_price"
-                        name="start_price"
+                        id="cost"
+                        name="cost"
                         onChange={handleChange}
-                        value={values.start_price}
-                        touched={touched.start_price}
-                        errors={errors.start_price}
+                        value={values.cost}
+                        touched={touched.cost}
+                        errors={errors.cost}
                       />
                       <Input
                         label="Time Window"
                         type="date"
                         placeholder="time window"
-                        id="time_window"
-                        name="time_window"
+                        id="expired_at"
+                        name="expired_at"
                         onChange={handleChange}
-                        value={values.time_window}
-                        touched={touched.time_window}
-                        errors={errors.time_window}
+                        value={values.expiredAt}
+                        touched={touched.expiredAt}
+                        errors={errors.expiredAt}
                       />
                     </div>
 
                     <div className="col-span-2 flex justify-end">
                       <Button
                         type="button"
-                        className="mx-5"
+                        className="mx-5 mt-10"
                         onClick={() => {
                           setOpen({
                             id: '',
@@ -122,7 +122,11 @@ function CreateItemDialog({
                       >
                         Cancel
                       </Button>
-                      <Button type="submit" className="" isLoading={isLoading}>
+                      <Button
+                        type="submit"
+                        className="mt-10"
+                        isLoading={isLoading}
+                      >
                         Deposit
                       </Button>
                     </div>

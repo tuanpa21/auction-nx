@@ -8,3 +8,27 @@ export interface IBid extends IProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement> | undefined) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement> | undefined) => void;
 }
+
+export interface IAuctionItem {
+  id: string;
+  name: string;
+  cost: number;
+  status: string;
+  userId: string;
+  expiredAt: string;
+  createdAt: string;
+  updatedAt: string;
+  auctions: [];
+}
+
+export interface IAuctionItems<T> {
+  data: T[];
+  meta: {
+    total: number;
+    lastPage: number;
+    currentPage: number;
+    perPage: number;
+    prev?: number;
+    next?: number;
+  };
+}

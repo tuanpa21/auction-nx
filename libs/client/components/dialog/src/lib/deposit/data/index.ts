@@ -3,18 +3,19 @@ import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import { TDepositItem, depositSchema } from './utils';
+import { IUser } from '@auction-nx/client/data';
 
 export default function useDepositData(
   setOpen: (value: { open: boolean; id: string }) => void
 ) {
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TDepositItem }) => {
-        //TODO: remove any type
-        return http<string, any >({
-            method: 'post',
-            // url: `wallets/${}/deposits`,
-            data: JSON.stringify(data),
-          });
+      const user = getUser() as IUser;
+      return http<string, any>({
+        method: 'put',
+        url: `wallets/${user.data.wallet.id}/deposits`,
+        data: JSON.stringify(data),
+      });
     },
     onSuccess(data, variables, context) {
       toast.success('Successful');
@@ -24,10 +25,10 @@ export default function useDepositData(
       });
     },
     onError(error, variables, context) {
-        if(error instanceof Error){
-            toast.error(error.message);
-            return;
-        }
+      if (error instanceof Error) {
+        toast.error(error.message);
+        return;
+      }
       toast.error(`An error occurred`);
     },
   });

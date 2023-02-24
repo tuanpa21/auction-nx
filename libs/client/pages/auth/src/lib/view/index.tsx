@@ -46,7 +46,7 @@ function AuthView({
           <div className=" flex w-full flex-col items-center justify-center">
             {type === 'login' && (
               <>
-                <Button isLoading={isLoading} type="submit">
+                <Button isLoading={isLoading} type="submit" className="mt-10">
                   Login
                 </Button>
                 <a href="/register" className="mt-3  underline">
@@ -56,7 +56,7 @@ function AuthView({
             )}
             {type === 'register' && (
               <>
-                <Button isLoading={isLoading} type="submit">
+                <Button isLoading={isLoading} type="submit" className="mt-10">
                   Register
                 </Button>
                 <a href="/login" className="mt-3 underline">

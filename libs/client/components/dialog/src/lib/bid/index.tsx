@@ -4,7 +4,7 @@ import BidItem from './view';
 
 export default function BidView({ open, setOpen }: IProps) {
   const { touched, values, errors, handleChange, handleSubmit, isLoading } =
-    useBidData(setOpen);
+    useBidData(open, setOpen);
 
   return (
     <BidItem

@@ -1,4 +1,4 @@
 export interface IProps {
-  open: boolean;
+  open: { open: boolean; id: string };
   setOpen: (value: { open: boolean; id: string }) => void;
 }
