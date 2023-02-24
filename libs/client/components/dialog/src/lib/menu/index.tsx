@@ -99,7 +99,7 @@ export default function MenuPopUp({ items }: MenuProps) {
                               setOpen({
                                 id: item.id,
                                 open: true,
-                                type: '',
+                                type: item.id,
                               });
                             }}
                             aria-current={
