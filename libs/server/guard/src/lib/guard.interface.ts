@@ -1,23 +1,23 @@
 export interface IConfigCookie {
-  expires: Date
-  domain: string
-  httpOnly: boolean
-  secure: boolean
-  path: string
+  expires: Date | null;
+  domain: string;
+  httpOnly: boolean;
+  secure: boolean;
+  path: string;
 }
 
 export interface IConfigJwt {
-  secretKey: string
-  expireIns: number
-  refreshSecretKey: string
-  refreshExpireIns: number
+  secretKey?: string;
+  expireIns: number;
+  refreshSecretKey?: string;
+  refreshExpireIns: number;
 }
 
 export interface IConfigGuard {
-  cookie: IConfigCookie
+  cookie: IConfigCookie;
   auth: {
-    jwt: IConfigJwt
-  }
+    jwt: IConfigJwt;
+  };
 }
 
 export enum GuardCookie {
@@ -32,8 +32,8 @@ export enum JwtCache {
 }
 
 export interface IJwtResponse<T> {
-  user: T
-  accessToken: string
-  refreshToken: string
-  expireIns: number
+  user: T;
+  accessToken: string;
+  refreshToken: string;
+  expireIns: number;
 }

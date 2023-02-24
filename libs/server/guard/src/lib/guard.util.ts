@@ -21,7 +21,7 @@ export class GuardUtil {
     private readonly config: ConfigService,
     private readonly jwtService: JwtService
   ) {
-    this.jwt = this.config.get('auth.jwt');
+    this.jwt = this.config.get('auth.jwt') as IConfigJwt;
   }
 
   async hashing(text: string, saltRounds = 10): Promise<string> {
@@ -73,7 +73,7 @@ export class GuardUtil {
     refresh = addSeconds(new Date(), this.jwt.refreshExpireIns)
   ): IReply {
     const cookie = this.config.get<IConfigCookie>('cookie');
-    cookie.expires = addSeconds(new Date(), this.jwt.expireIns);
+    if (cookie) cookie.expires = addSeconds(new Date(), this.jwt.expireIns);
     return res
       .setCookie(GuardCookie.ACCESS_TOKEN, response.accessToken, cookie)
       .setCookie(GuardCookie.EXPIRE_INS, response.expireIns.toString(), cookie)
