@@ -24,7 +24,7 @@ export class WalletService {
     }
 
     return this.prisma.wallet.update({
-      where: { id: user.wallet.id, userId: info.sub },
+      where: { id: user.wallet.id },
       data: { amount: { increment: data.amount } },
     });
   }
