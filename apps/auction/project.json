@@ -24,7 +24,8 @@
       "executor": "@nrwl/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "auction:build"
+        "buildTarget": "auction:build",
+        "proxyConfig": "apps/auction/proxy.conf.json"
       },
       "configurations": {
         "development": {
