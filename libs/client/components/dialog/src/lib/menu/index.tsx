@@ -128,12 +128,8 @@ export default function MenuPopUp({ items }: MenuProps) {
         )}
       </Menu>
 
-      {open.id === 'deposit' && (
-        <DepositDialog open={open.open} setOpen={setOpen} />
-      )}
-      {open.id === 'create' && (
-        <CreateDialog open={open.open} setOpen={setOpen} />
-      )}
+      {open.id === 'deposit' && <DepositDialog open={open} setOpen={setOpen} />}
+      {open.id === 'create' && <CreateDialog open={open} setOpen={setOpen} />}
     </>
   );
 }

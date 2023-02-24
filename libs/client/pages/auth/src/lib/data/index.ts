@@ -40,7 +40,6 @@ export function useAuthData(type?: string) {
       });
     },
     onSuccess(data, variables, context) {
-        
       if (data?.data) {
         setToken(data?.data.accessToken);
         setRefreshToken(data?.data.refreshToken);
@@ -48,14 +47,14 @@ export function useAuthData(type?: string) {
         setUser(data?.data.user);
         //TODO: redirect to dashboard
         toast.success('Successful');
-        navigate('/');
+        navigate('/dashboard');
       }
     },
     onError(error, variables, context) {
-        if(error instanceof Error){
-            toast.error(error.message);
-            return;
-        }
+      if (error instanceof Error) {
+        toast.error(error.message);
+        return;
+      }
       toast.error(`An error occurred`);
     },
   });

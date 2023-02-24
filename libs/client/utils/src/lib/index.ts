@@ -1,4 +1,4 @@
-import { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios';
 import { getAPIEndpoint } from './env';
 
@@ -42,8 +42,7 @@ export function setUser(user: any) {
 
 export function getUser() {
   const user = localStorage.getItem('user');
-  if(user)
-    return JSON.parse(user);
+  if (user) return JSON.parse(user);
   return null;
 }
 
@@ -64,15 +63,8 @@ export async function http<T, K>(requestConfig: AxiosRequestConfig<T>) {
     // add token to request
     explorer.interceptors.request.use(
       async (config) => {
-        //check if token has expired
-        if (
-          getExpiresIn() &&
-          new Date().getTime() > parseInt(getExpiresIn()!)
-        ) {
-          await refresh();
-        }
         const token = getToken();
-        config.headers.Authorization = `Bearer ${token}`;
+        if (token) config.headers.Authorization = `Bearer ${token}`;
         return config;
       },
       (error) => {
@@ -87,7 +79,7 @@ export async function http<T, K>(requestConfig: AxiosRequestConfig<T>) {
         const originalRequest = error.config;
         if (error.response.status === 401 && !originalRequest._retry) {
           originalRequest._retry = true;
-          const value = await refresh();
+          const value = await refresh(explorer);
           if (value) {
             return explorer(originalRequest);
           }
@@ -135,11 +127,8 @@ export async function http<T, K>(requestConfig: AxiosRequestConfig<T>) {
   }
 }
 
-const refresh = async () => {
-  const refreshToken = getRefreshToken();
-  const response = await axios.post('auth/refresh', {
-    refreshToken,
-  });
+const refresh = async (explorer: AxiosInstance) => {
+  const response = await explorer.post('auth/refresh-token');
   if (response.status === 201) {
     setToken(response.data.accessToken);
     setRefreshToken(response.data.refreshToken);
@@ -149,3 +138,11 @@ const refresh = async () => {
   }
   return false;
 };
+
+export function addSeconds(date: Date, seconds: number) {
+  const dateCopy = new Date(date.getTime());
+
+  dateCopy.setSeconds(dateCopy.getSeconds() + seconds);
+
+  return dateCopy;
+}

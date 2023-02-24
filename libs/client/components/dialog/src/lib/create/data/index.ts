@@ -1,29 +1,30 @@
-import { getAPIEndpoint } from '@auction-nx/client/utils';
+import { http } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import { TCreateItem, createItemSchema } from './utils';
+import { ICreateItemRes } from '../interface';
 
 export const useCreateData = (
   setOpen: (value: { open: boolean; id: string }) => void
 ) => {
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TCreateItem }) => {
-      //   return fetch(`${getAPIEndpoint()}/`, {
-      //     method: 'POST',
-      //     body: JSON.stringify({
-      //       ...data,
-      //     }),
-      //   });
-
-      return fetch('https://jsonplaceholder.typicode.com/todos/1');
+      data.expiredAt = new Date(data.expiredAt).toISOString();
+      return http<string, ICreateItemRes>({
+        method: 'post',
+        url: `items`,
+        data: JSON.stringify(data),
+      });
     },
     onSuccess(data, variables, context) {
-      toast.success('Successful');
-      setOpen({
-        id: '',
-        open: false,
-      });
+      if (data?.data.id) {
+        toast.success('Successful');
+        setOpen({
+          id: '',
+          open: false,
+        });
+      }
     },
     onError(error, variables, context) {
       toast.error('An error occurred');
@@ -39,8 +40,8 @@ export const useCreateData = (
   const formik = useFormik({
     initialValues: {
       name: '',
-      start_price: 0,
-      time_window: '',
+      cost: 0,
+      expiredAt: '',
     },
     enableReinitialize: true,
     validationSchema: createItemSchema,

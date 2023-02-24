@@ -1,5 +1,4 @@
-import { ReactNode, createContext, useContext } from 'react';
-import { Account } from '@auction-nx/client/data';
+import { ReactNode, createContext, useContext, useMemo, useState } from 'react';
 import {
   ColumnDef,
   Table,
@@ -10,6 +9,7 @@ import {
 } from '@tanstack/react-table';
 import { useQuery } from '@tanstack/react-query';
 import { http } from '@auction-nx/client/utils';
+import { IAuctionItems } from './interface';
 
 interface BidState<T> {
   table: Table<T>;
@@ -17,9 +17,10 @@ interface BidState<T> {
   isLoading: boolean;
   isError: boolean;
   error: unknown | null;
-  // pageIndex: number;
-  // pageSize: number;
+  pageIndex: number;
+  pageSize: number;
   refetch: () => void;
+  setFilters: (val: string) => void;
   data?: unknown[];
 }
 
@@ -37,26 +38,41 @@ export function useBid<T>() {
 interface BidProviderProps<T> {
   children: ReactNode;
   columns: ColumnDef<T, any>[];
-  account?: Account;
   dataKey: string;
+  setFilters?: (val: string) => void;
   parseData?: (data: unknown) => T[];
 }
 
-export default function BidProvider<T>({
+export interface PaginationState {
+  pageIndex: number;
+  pageSize: number;
+}
+
+export function BidProvider<T>({
   children,
-  account,
   columns,
   dataKey,
 }: BidProviderProps<T>) {
   //TODO: query auctions
   // TODO: query user account
+  const [filters, setFilters] = useState('ON_GOING');
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
+    pageIndex: 1,
+    pageSize: 10,
+  });
+
+  const pagination = useMemo(
+    () => ({ pageIndex, pageSize }),
+    [pageIndex, pageSize]
+  );
 
   const { data, isSuccess, isLoading, isError, error, refetch } = useQuery({
-    queryKey: [dataKey],
+    queryKey: [dataKey, pageIndex, pageSize, filters],
+    retry: false,
     queryFn: async () => {
-      const response = await http<T>({
-        method: 'GET',
-        url: `/auctions`,
+      const response = await http<string, IAuctionItems<T>>({
+        method: 'get',
+        url: `${dataKey}?page=${pageIndex}&size=${pageSize}&search=${filters}`,
       });
 
       return response;
@@ -64,11 +80,17 @@ export default function BidProvider<T>({
   });
 
   const table = useReactTable<T>({
-    data,
+    data: data?.data || ([] as T[]),
     columns,
+    manualPagination: true,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    onPaginationChange: setPagination,
+    pageCount: data ? data.meta.total : -1,
+    state: {
+      pagination,
+    },
   });
 
   return (
@@ -80,6 +102,10 @@ export default function BidProvider<T>({
         isError,
         error,
         refetch,
+        pageIndex,
+        pageSize,
+        setFilters,
+        data: data?.data,
       }}
     >
       {children}
