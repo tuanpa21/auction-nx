@@ -8,8 +8,16 @@ export function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Dashboard />} errorElement={<ErrorPage />} />
-        {/*For login/register*/}
+        <Route
+          path="/"
+          element={<Link to="/login">Login</Link>}
+          errorElement={<ErrorPage />}
+        />
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+          errorElement={<ErrorPage />}
+        />
         <Route path="/:type" element={<Auth />} errorElement={<ErrorPage />} />
       </Routes>
     </>

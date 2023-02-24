@@ -17,7 +17,7 @@ function DepositDialog({
   isLoading,
 }: IDeposit) {
   return (
-    <Transition appear show={open} as={Fragment}>
+    <Transition appear show={open.open} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-10"
@@ -89,7 +89,7 @@ function DepositDialog({
                     <div className="col-span-2 flex justify-end">
                       <Button
                         type="button"
-                        className="mx-5"
+                        className="mx-5 mt-10"
                         onClick={() => {
                           setOpen({
                             id: '',
@@ -99,7 +99,11 @@ function DepositDialog({
                       >
                         Cancel
                       </Button>
-                      <Button type="submit" className="" isLoading={isLoading}>
+                      <Button
+                        type="submit"
+                        className="mt-10"
+                        isLoading={isLoading}
+                      >
                         Deposit
                       </Button>
                     </div>

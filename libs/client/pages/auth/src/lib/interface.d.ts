@@ -28,5 +28,5 @@ export interface IAuthResponse {
       createdAt: string;
       updatedAt: string;
     };
-  }
+  };
 }

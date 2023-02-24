@@ -2,7 +2,7 @@ import DashboardView from './view';
 import { useDashboardData } from './data';
 
 export default function Dashboard() {
-  // const { } = useDashboardData();
+  const { tabs, open, setOpen } = useDashboardData();
 
-  return <DashboardView />;
+  return <DashboardView tabs={tabs} open={open} setOpen={setOpen} />;
 }
