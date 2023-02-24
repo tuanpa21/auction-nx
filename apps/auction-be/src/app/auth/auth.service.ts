@@ -64,7 +64,7 @@ export class AuthService {
     return this.upsertToken(user, AuthProvider.NORMAL);
   }
 
-  async signOut(info: IUserJwt, accessToken: string) {
+  async signOut(info: IUserJwt, accessToken = '') {
     await this.prisma.auth.update({
       where: {
         userId_provider: {
@@ -84,7 +84,7 @@ export class AuthService {
     );
   }
 
-  async refresh(info: IUserJwt, refreshToken: string) {
+  async refresh(info: IUserJwt, refreshToken = '') {
     const auth = await this.prisma.auth.findUnique({
       where: {
         userId_provider: {

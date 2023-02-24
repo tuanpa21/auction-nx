@@ -64,9 +64,9 @@ export class AuthController {
     @Res() res: IReply
   ): Promise<AuthSignInRes> {
     const response = await this.authService.signIn(data);
-    if (response.user.password) delete response.user.password;
+    const { password, ...result } = response;
 
-    return this.guardUtil.setCookie(res, response).send({ data: response });
+    return this.guardUtil.setCookie(res, response).send({ data: result });
   }
 
   @UseGuards(JwtAtGuard)
