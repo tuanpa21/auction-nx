@@ -13,14 +13,18 @@ Add this line to your application's:
 ```
 
 And then execute:
+1.  run a local or docker postgres database and change the DATABASE_URL in the .env file to point to the database.
+2.  run a redis server or ignore it
+3. run the following command to create the database tables:
+
+```npm
+ npm run prisma:migrate-dev
+``` 
+
 ```npm
  npm run serve
 ```
 
-Or install it yourself as: 
-```npm
- npm install
-```
 
 ## Usage
 
