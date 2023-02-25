@@ -6,7 +6,7 @@ export function useDashboardData() {
     id: '',
     type: '',
   });
-  
+
   const tabs = ['On Going', 'Completed'];
 
   return {

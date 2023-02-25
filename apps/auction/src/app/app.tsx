@@ -13,7 +13,7 @@ export function App() {
         <Route
           exact
           path={home}
-          element={<WithAuth children={<Dashboard/>} /> }
+          element={<WithAuth children={<Dashboard />} />}
         />
         <Route
           path={dashboard}
@@ -22,7 +22,11 @@ export function App() {
         />
         {/*Type will be login, auth*/}
         <Route path="/login" element={<Auth />} errorElement={<ErrorPage />} />
-        <Route path="/register" element={<Auth />} errorElement={<ErrorPage />} />
+        <Route
+          path="/register"
+          element={<Auth />}
+          errorElement={<ErrorPage />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

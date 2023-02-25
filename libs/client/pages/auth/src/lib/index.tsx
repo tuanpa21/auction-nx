@@ -15,9 +15,11 @@ export default function Auth() {
       <div className=" w-full h-screen flex flex-col justify-center items-center">
         <h1>Oops!</h1>
         <p>Sorry, an unexpected error has occurred.</p>
-        <Link to="/" className=" underline">Go to home</Link>
+        <Link to="/" className=" underline">
+          Go to home
+        </Link>
         <p>{/* <i>{error.statusText || error.message}</i> */}</p>
-    </div>
+      </div>
     );
   }
 

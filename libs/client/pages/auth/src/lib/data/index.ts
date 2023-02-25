@@ -1,7 +1,4 @@
-import {
-  httpClient,
-  setUser,
-} from '@auction-nx/client/utils';
+import { httpClient, setUser } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
@@ -9,7 +6,6 @@ import { toast } from 'react-toastify';
 import { Authentication, authenticationSchema } from './utils';
 import { useNavigate } from 'react-router-dom';
 import { IAuthResponse, TAuthType } from '../interface';
-
 
 export function useAuthData(pathname?: TAuthType) {
   const navigate = useNavigate();

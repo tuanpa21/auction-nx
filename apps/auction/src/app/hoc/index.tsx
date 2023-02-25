@@ -4,20 +4,19 @@ import { redirect } from 'react-router-dom';
 import { login } from '../interface.d';
 
 interface IProps {
-    children: JSX.Element;
+  children: JSX.Element;
 }
 
 function WithAuth({ children }: IProps) {
-    const isLoggedIn = Boolean(getUser());
-  
-    // If user is not authenticated, redirect to login page
-      useEffect(() => {
-        if(!isLoggedIn) redirect(login)
-      }, [isLoggedIn])
+  const isLoggedIn = Boolean(getUser());
 
-      // Otherwise, navigate to child component
-      return children
+  // If user is not authenticated, redirect to login page
+  useEffect(() => {
+    if (!isLoggedIn) redirect(login);
+  }, [isLoggedIn]);
 
-};
+  // Otherwise, navigate to child component
+  return children;
+}
 
 export default WithAuth;

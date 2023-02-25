@@ -5,7 +5,6 @@ export interface IProps {
 
 type TAuthType = '/login' | '/register';
 
-
 export interface IAuthProps {
   pathname?: TAuthType;
   isLoading: boolean;
