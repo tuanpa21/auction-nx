@@ -17,7 +17,7 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
       headers: {
         'Content-Type': 'application/json',
       },
-      // withCredentials: true,
+      withCredentials: true,
     });
     // add token to request
     explorer.interceptors.request.use(

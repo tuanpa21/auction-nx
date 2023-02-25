@@ -32,7 +32,7 @@ export default function addRefreshToken(axiosInstance: AxiosInstance) {
       const refreshToken = localStorage.getItem('refreshToken');
 
       try {
-        const response = await axiosInstance.post('/api/token/refresh', {
+        const response = await axiosInstance.post('/auth/refresh-token', {
           refreshToken,
         });
 
