@@ -1,8 +1,5 @@
 import {
   httpClient,
-  setExpiresIn,
-  setRefreshToken,
-  setToken,
   setUser,
 } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
@@ -40,10 +37,8 @@ export function useAuthData(pathname?: TAuthType) {
     },
     onSuccess(data, variables, context) {
       if (data?.data) {
-        setToken(data?.data.accessToken);
-        setRefreshToken(data?.data.refreshToken);
-        setExpiresIn(data?.data.expireIns.toString());
         setUser(data?.data.user);
+        localStorage.setItem('refreshToken', data?.data.refreshToken);
         //TODO: redirect to dashboard
         toast.success('Successful');
         navigate('/dashboard');
@@ -58,7 +53,6 @@ export function useAuthData(pathname?: TAuthType) {
     },
   });
   const onSubmit = (values: { email: string; password: string }) => {
-    console.log(values);
     if (pathname === '/login') {
       mutate({ data: values, mutationType: '/login' });
       return;

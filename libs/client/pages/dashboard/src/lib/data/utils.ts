@@ -2,6 +2,7 @@ import * as yup from 'yup';
 
 const bidSchema = yup.object().shape({
   id: yup.string().optional(),
+  email: yup.string().optional(),
   name: yup.string().optional(),
   cost: yup.number().optional(),
   userId: yup.string().optional(),

@@ -1,11 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getAPIEndpoint } from './env';
-import {
-  getRefreshToken,
-  setExpiresIn,
-  setRefreshToken,
-  setToken,
-} from './auth';
 import addRefreshToken from './interceptor';
 
 export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
@@ -20,8 +14,6 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
     // add token to request
     explorer.interceptors.request.use(
       async (config) => {
-        // const token = getToken();
-        // if (token) config.headers.Authorization = `Bearer ${token}`;
         return config;
       },
       (error) => {
@@ -45,14 +37,9 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
       }
     }
 
-    // add token to request
-    // requestConfig.headers = {
-    //   Authorization: `Bearer ${getToken()}`,
-    // };
-
     const response = await explorer.request(requestConfig);
 
-    if (response.status === 200 || response.status === 201) {
+    if (response.status >= 200 || response.status <= 226) {
       return response.data as K;
     } else {
       throw new Error(response.statusText);
@@ -70,26 +57,6 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
     if (error instanceof Error) throw new Error(error.message);
   }
 }
-
-const refresh = async (explorer: AxiosInstance) => {
-  const response = await explorer.post(
-    'auth/refresh-token',
-    {},
-    {
-      headers: {
-        Authorization: `${getRefreshToken()}`,
-      },
-    }
-  );
-  if (response.status === 201) {
-    setToken(response.data.accessToken);
-    setRefreshToken(response.data.refreshToken);
-    setExpiresIn(response.data.expiresIn);
-
-    return true;
-  }
-  return false;
-};
 
 export function addSeconds(date: Date, seconds: number) {
   const dateCopy = new Date(date.getTime());

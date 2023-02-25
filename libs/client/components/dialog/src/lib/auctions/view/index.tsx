@@ -1,6 +1,5 @@
 import { Transition, Dialog } from "@headlessui/react";
 import { Fragment } from "react";
-import { IProps } from "../../interface";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { IItemAuctionData } from "../interface";
 
@@ -74,15 +73,15 @@ export default function AuctionsDialog({ open, setOpen, data, isLoading, isError
                                 <table className="col-span-2 mt-2 border border-slate-500 w-full">
                                     <thead>
                                         <tr>
-                                            <th align="center" className="border border-slate-600">User</th>
                                             <th align="center" className="border border-slate-600">Bid Price</th>
+                                            <th align="center" className="border border-slate-600">Date</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {data.map((item) => (
                                             <tr key={item.id}>
-                                                <td align="center" className="p-2 border">{item.id}</td>
-                                                <td align="center" className="border">{item.cost}</td>
+                                                <td align="center" className="p-2 border">{item.cost}</td>
+                                                <td align="center" className="border">{new Date(item.createdAt).toUTCString()}</td>
                                             </tr>
                                         ))}
                                     </tbody>

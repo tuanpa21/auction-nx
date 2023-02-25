@@ -5,6 +5,8 @@ export interface IItemAuction {
     itemId: string;
     userId: string;
     cost: number;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export interface IItemAuctionData extends IProps {

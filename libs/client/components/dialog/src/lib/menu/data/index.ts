@@ -1,4 +1,4 @@
-import { httpClient, removeToken } from '@auction-nx/client/utils';
+import { httpClient, removeUser } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -14,8 +14,8 @@ export function useMenuData() {
     },
     onSuccess(data, variables, context) {
       toast.success('Successful');
+      removeUser();
       navigate('/login');
-      removeToken();
     },
     onError(error, variables, context) {
       if (error instanceof Error) {
@@ -30,8 +30,6 @@ export function useMenuData() {
     console.log('logout');
     mutate();
   };
-
-  console.log(isLoading);
 
   return {
     isLoading,
