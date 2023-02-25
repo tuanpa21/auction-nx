@@ -78,10 +78,11 @@ async function bootstrap() {
     setupSwagger(app, version, service); // Setup swagger
   }
   app.enableCors({
-    origin:
-      config.get<Env>('env') === Env.PRODUCTION
-        ? config.get<string | string[]>('server.whitelist')
-        : '*', // Enable CORS
+    // origin:
+    //   config.get<Env>('env') === Env.PRODUCTION
+    //     ? config.get<string | string[]>('server.whitelist')
+    //     : '*', // Enable CORS
+    origin: 'http://localhost:4200', // Hardcode for local development
     ...CORS,
   });
   await app.listen(port, '0.0.0.0'); // Public endpoint
