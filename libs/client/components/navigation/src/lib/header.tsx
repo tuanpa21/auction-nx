@@ -1,5 +1,5 @@
 // import { useBid } from '@auction-nx/client/components/dialog';
-import { MenuPopUp } from '@auction-nx/client/components/dialog';
+import { MenuView } from '@auction-nx/client/components/dialog';
 import { profile } from '@auction-nx/client/components/dialog';
 import { useNavigationData } from './data';
 
@@ -24,7 +24,7 @@ export default function Header() {
             </div>
           )}
           {/* DropDown */}
-          <MenuPopUp items={profile} />
+          <MenuView items={profile} />
         </div>
       </div>{' '}
     </>
