@@ -1,11 +1,10 @@
 import { createPaginator } from 'prisma-pagination';
-import { Injectable, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '@auction-nx/server/prisma';
 import { ConfigService } from '@nestjs/config';
 import { IUserJwt } from '@auction-nx/server/common';
-import { ItemAuctionCreateDto, ItemCreateDto, ItemQueryDto, ItemUpdateDto } from './item.validation';
-import { Item, ItemAuction, Prisma } from '@prisma/client';
-import { BadRequestException } from '@nestjs/common';
+import { ItemCreateDto, ItemQueryDto, ItemUpdateDto } from './item.validation';
+import { Item, Prisma } from '@prisma/client';
 
 @Injectable()
 export class ItemService {
@@ -44,59 +43,11 @@ export class ItemService {
     });
   }
 
-  async createItemAuction(info: IUserJwt, data: ItemAuctionCreateDto) {
-
-    if (data.cost <= 0) throw new BadRequestException(`Your bid price must be larger`);
-
-    //check wallet
-    const wallet = await this.prisma.wallet.findUnique({
-      where: { userId: info.sub },
-      select: { amount: true },
-    });
-    if(!wallet) throw new BadRequestException(`You not have wallet`);
-    if (wallet.amount < data.cost)
-      throw new BadRequestException(`You not have enough money to continue`);
-    
-    //check item
-    const item = await this.prisma.item.findUnique({
-      where: { id: data.itemId },
-      select: { cost: true },
-    });
-    if(!item) throw new BadRequestException(`Item not found`);
-    if(item?.cost >= data.cost) throw new BadRequestException(`Your bid price must be larger than the item price`);
-
-    //check item auction
-    const itemAuction = await this.prisma.itemAuction.findFirst({
-      where: { itemId: data.itemId },
-      orderBy: { createdAt: 'desc' },
-      select: { cost: true },
-    });
-    if(itemAuction) {
-      if(itemAuction?.cost >= data.cost) throw new BadRequestException(`Your bid price must be larger than the previous auction price`);
-    }
-    // start item auction transaction
-    const [result] = await this.prisma.$transaction([
-      this.prisma.itemAuction.create({
-        data: {
-          itemId: data.itemId,
-          cost: data.cost,
-          userId: info.sub
-        },
-      }),
-      // this.prisma.wallet.update({
-      //   where: { userId: info.sub },
-      //   data: { amount: { decrement: data.cost } },
-      // }),
-    ]);
-    return result;
-  }
-
   async getAllAuction(itemId: string) {
-    console.log(itemId);
     return this.prisma.itemAuction.findMany({
       where: { itemId },
       orderBy: { createdAt: 'desc' },
-    })
+    });
   }
 
   async update(info: IUserJwt, id: string, data: ItemUpdateDto) {
@@ -122,24 +73,26 @@ export class ItemService {
     if (lastAuc && lastAuc.userId === info.sub)
       throw new BadRequestException(`You are the last auctioneer`);
 
-    const [result] = await this.prisma.$transaction([
-      this.prisma.item.update({
-        where: { id },
-        data: {
-          cost: data.cost,
-          auctions: { create: { userId: info.sub, cost: data.cost } },
-        }, //update last price
-      }),
-      this.prisma.wallet.update({
-        where: { userId: info.sub },
-        data: { amount: { decrement: data.cost } },
-      }), // decrease money new auc
-      lastAuc && // refund money last auc
-        this.prisma.wallet.update({
-          where: { userId: item.auctions[0].userId },
+    const updateItem = this.prisma.item.update({
+      where: { id },
+      data: {
+        cost: data.cost,
+        auctions: { create: { userId: info.sub, cost: data.cost } },
+      }, //update last price
+    });
+    const updateWallet = this.prisma.wallet.update({
+      where: { userId: info.sub },
+      data: { amount: { decrement: data.cost } },
+    }); // decrease money new auc
+    const refundWallet = lastAuc // refund money last auc
+      ? this.prisma.wallet.update({
+          where: { userId: item?.auctions[0].userId },
           data: { amount: { increment: data.cost } },
-        }),
-    ]);
+        })
+      : null;
+    const transactions = [updateItem, updateWallet];
+    refundWallet && transactions.push(refundWallet);
+    const [result] = await this.prisma.$transaction(transactions);
     return result;
   }
 
