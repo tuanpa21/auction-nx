@@ -20,7 +20,7 @@ export const guardConfig = (): IConfigGuard => {
       domain: process.env.COOKIE_DOMAIN || 'localhost',
       secure: process.env.NODE_ENV !== 'default',
       expires: null,
-      httpOnly: process.env.NODE_ENV === Env.PRODUCTION ? true : false,
+      httpOnly: process.env.NODE_ENV === Env.PRODUCTION,
     },
   };
 };

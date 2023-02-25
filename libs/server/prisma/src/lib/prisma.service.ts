@@ -18,7 +18,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       process.env.NODE_ENV !== 'development'
     ) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      super.$on<any>('query', (event: Prisma.QueryEvent) => {
+      super.$on<any>('query', (event: Prisma.QueryEvent | any) => {
         console.log('Query: ' + event.query);
         console.log('Params: ' + event.params);
         console.log('Duration: ' + event.duration + 'ms');

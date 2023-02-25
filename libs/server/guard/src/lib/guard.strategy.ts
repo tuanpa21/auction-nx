@@ -28,8 +28,8 @@ export class JwtAccessTokenStrategy extends PassportStrategy(Strategy, 'jwt') {
       ]),
       secretOrKeyProvider: async (request, rawJwt, done) => {
         this.cache
-          .get(`${JwtCache.ACCESS_TOKEN}_${rawJwt}`)
-          .then((reason: GuardCode) => {
+          .get<GuardCode>(`${JwtCache.ACCESS_TOKEN}_${rawJwt}`)
+          .then((reason?: GuardCode) => {
             reason
               ? done(new GuardException(reason))
               : done(null, config.get('auth.jwt.secretKey'));
@@ -67,8 +67,8 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(
       ]),
       secretOrKeyProvider: async (request, rawJwt, done) => {
         this.cache
-          .get(`${JwtCache.ACCESS_TOKEN}_${rawJwt}`)
-          .then((reason: GuardCode) => {
+          .get<GuardCode>(`${JwtCache.ACCESS_TOKEN}_${rawJwt}`)
+          .then((reason?: GuardCode) => {
             reason
               ? done(new GuardException(reason))
               : done(null, config.get('auth.jwt.refreshSecretKey'));
