@@ -35,7 +35,6 @@ export const useCreateData = (
     },
   });
   const onSubmit = (values: TCreateItem) => {
-    console.log(values);
     mutate({
       data: values,
     });
@@ -54,8 +53,6 @@ export const useCreateData = (
 
   const { touched, values, errors, handleChange, handleSubmit, setFieldValue } =
     formik;
-
-  console.log(values);
 
   return {
     isLoading,
