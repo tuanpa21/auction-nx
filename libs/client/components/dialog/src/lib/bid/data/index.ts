@@ -10,7 +10,7 @@ export default function useBidData(
     id: string;
     type: string;
   },
-  setOpen: (value: { open: boolean; id: string, type: string }) => void
+  setOpen: (value: { open: boolean; id: string; type: string }) => void
 ) {
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TBid }) => {

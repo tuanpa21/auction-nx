@@ -48,7 +48,6 @@ export interface PaginationState {
   pageSize: number;
 }
 
-
 export function BidProvider<T>({
   children,
   columns,
@@ -75,10 +74,11 @@ export function BidProvider<T>({
     queryKey: [dataKey, pageIndex, pageSize, filters],
     retry: false,
     queryFn: async () => {
-      
       const response = await http<string, IAuctionItems<T>>({
         method: 'get',
-        url: `${dataKey}?page=${pageIndex+1}&size=${pageSize}&search=${JSON.stringify(filters)}`,
+        url: `${dataKey}?page=${
+          pageIndex + 1
+        }&size=${pageSize}&search=${JSON.stringify(filters)}`,
       });
 
       return response;

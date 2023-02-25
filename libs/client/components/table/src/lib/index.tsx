@@ -34,7 +34,7 @@ export default function AppTable({ filter }: { filter: Filter }) {
 
       {isSuccess && data && data.length <= 0 && (
         <div className="flex min-h-[500px] flex-col items-center justify-center rounded-xl bg-white py-12  md:min-h-[600px]">
-          <p className="text-xl font-semibold text-gray-700">No content ☹️</p>
+          <p className="text-xl font-semibold text-gray-700">No content</p>
         </div>
       )}
 

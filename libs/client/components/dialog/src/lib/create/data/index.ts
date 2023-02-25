@@ -7,7 +7,7 @@ import { ICreateItemRes } from '../interface';
 import { useBid } from '../../bid/bidprovider';
 
 export const useCreateData = (
-  setOpen: (value: { open: boolean; id: string, type: string, }) => void
+  setOpen: (value: { open: boolean; id: string; type: string }) => void
 ) => {
   const { refetch } = useBid();
   const { isLoading, mutate } = useMutation({
@@ -55,7 +55,7 @@ export const useCreateData = (
   const { touched, values, errors, handleChange, handleSubmit, setFieldValue } =
     formik;
 
-    console.log(values);
+  console.log(values);
 
   return {
     isLoading,

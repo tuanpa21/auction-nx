@@ -36,8 +36,7 @@ export interface IAuctionItems<T> {
 type TFilter = 'ON_GOING' | 'COMPLETE';
 
 export type Filter = {
-  status: TFilter,
-  name?: string | undefined,
-  cost?: number | undefined,
-}
-
+  status: TFilter;
+  name?: string | undefined;
+  cost?: number | undefined;
+};

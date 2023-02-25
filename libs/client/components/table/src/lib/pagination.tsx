@@ -49,7 +49,7 @@ function TablePagination() {
         <span className="flex items-center gap-1 text-gray-700">
           <div>Page</div>
           <strong className="text-primary">
-            {table.getState().pagination.pageIndex + 1 } of{' '}
+            {table.getState().pagination.pageIndex + 1} of{' '}
             {isLoading ? '-' : table.getPageCount()}
           </strong>
         </span>
@@ -64,7 +64,7 @@ function TablePagination() {
             min={1}
             aria-disabled={!table.getPageCount()}
             disabled={!table.getPageCount()}
-            onChange={e => {
+            onChange={(e) => {
               const page = e.target.value ? Number(e.target.value) - 1 : 0;
               table.setPageIndex(page);
             }}
@@ -102,7 +102,7 @@ function TablePagination() {
               leaveTo="transform scale-y-95 opacity-0"
             >
               <Listbox.Options className="absolute top-0 -mt-1 max-h-60 w-full -translate-y-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                {[10, 20, 30, 40, 50].map(pageSize => (
+                {[10, 20, 30, 40, 50].map((pageSize) => (
                   <Listbox.Option
                     key={pageSize}
                     className={({ active }) =>

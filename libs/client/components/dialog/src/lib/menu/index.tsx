@@ -138,7 +138,9 @@ export default function MenuPopUp({ items }: MenuProps) {
         )}
       </Menu>
 
-      {open.type === 'deposit' && <DepositDialog open={open} setOpen={setOpen} />}
+      {open.type === 'deposit' && (
+        <DepositDialog open={open} setOpen={setOpen} />
+      )}
       {open.type === 'create' && <CreateDialog open={open} setOpen={setOpen} />}
     </>
   );
