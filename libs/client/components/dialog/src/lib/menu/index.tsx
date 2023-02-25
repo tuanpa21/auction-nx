@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { classNames, changeState, removeToken } from '@auction-nx/client/utils';
 
@@ -12,6 +12,7 @@ import {
 } from '@auction-nx/client/components/dialog';
 
 export default function MenuPopUp({ items }: MenuProps) {
+  const navigate = useNavigate();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState({
     id: '',
@@ -98,7 +99,7 @@ export default function MenuPopUp({ items }: MenuProps) {
                               if (item.id === 'logout') {
                                 // TODO: logout api integration
                                 removeToken();
-                                changeState('/login');
+                                navigate('/login');
                                 return;
                               }
                               close();
