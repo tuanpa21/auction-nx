@@ -34,7 +34,6 @@ export function useAuthData(pathname?: TAuthType) {
     onSuccess(data, variables, context) {
       if (data?.data) {
         setUser(data?.data.user);
-        localStorage.setItem('refreshToken', data?.data.refreshToken);
         //TODO: redirect to dashboard
         toast.success('Successful');
         navigate('/dashboard');
