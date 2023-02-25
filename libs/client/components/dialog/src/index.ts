@@ -1,5 +1,6 @@
 export { default as BidDialog } from './lib/bid';
 export { BidProvider, useBid } from './lib/bid/bidprovider';
+export * from './lib/bid/interface.d';
 export * from './lib/bid/view';
 export { default as CreateDialog } from './lib/create';
 export * from './lib/create/view';

@@ -1,9 +1,9 @@
 import { Menu, Transition } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { classNames, changeState } from '@auction-nx/client/utils';
+import { classNames, changeState, removeToken } from '@auction-nx/client/utils';
 
 import { MenuProps } from './interface';
 import {
@@ -12,6 +12,7 @@ import {
 } from '@auction-nx/client/components/dialog';
 
 export default function MenuPopUp({ items }: MenuProps) {
+  const navigate = useNavigate();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState({
     id: '',
@@ -94,6 +95,13 @@ export default function MenuPopUp({ items }: MenuProps) {
                               'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
                             )}
                             onClick={() => {
+                              //logout
+                              if (item.id === 'logout') {
+                                // TODO: logout api integration
+                                removeToken();
+                                navigate('/login');
+                                return;
+                              }
                               close();
                               changeState(item.href);
                               setOpen({
@@ -130,7 +138,9 @@ export default function MenuPopUp({ items }: MenuProps) {
         )}
       </Menu>
 
-      {open.type === 'deposit' && <DepositDialog open={open} setOpen={setOpen} />}
+      {open.type === 'deposit' && (
+        <DepositDialog open={open} setOpen={setOpen} />
+      )}
       {open.type === 'create' && <CreateDialog open={open} setOpen={setOpen} />}
     </>
   );
