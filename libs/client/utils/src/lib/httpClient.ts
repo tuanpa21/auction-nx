@@ -8,6 +8,7 @@ import {
   setRefreshToken,
   setToken,
 } from './auth';
+import addRefreshToken from './interceptor';
 
 export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
   try {
@@ -31,20 +32,7 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
     );
 
     // refresh token
-    explorer.interceptors.response.use(
-      (response) => response,
-      async (error) => {
-        const originalRequest = error.config;
-        if (error.response.status === 401 && !originalRequest._retry) {
-          originalRequest._retry = true;
-          const value = await refresh(explorer);
-          if (value) {
-            return explorer(originalRequest);
-          }
-        }
-        return Promise.reject(error);
-      }
-    );
+    addRefreshToken(explorer);
 
     if (
       requestConfig.url === 'auth/sign-in' ||
