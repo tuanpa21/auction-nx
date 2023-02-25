@@ -3,7 +3,7 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { classNames, changeState } from '@auction-nx/client/utils';
+import { classNames, changeState, removeToken } from '@auction-nx/client/utils';
 
 import { MenuProps } from './interface';
 import {
@@ -94,6 +94,12 @@ export default function MenuPopUp({ items }: MenuProps) {
                               'group flex items-center rounded-md px-2 py-2 text-sm font-medium'
                             )}
                             onClick={() => {
+                              //logout
+                              if (item.id === 'logout') {
+                                removeToken();
+                                changeState('/login');
+                                return;
+                              }
                               close();
                               changeState(item.href);
                               setOpen({
