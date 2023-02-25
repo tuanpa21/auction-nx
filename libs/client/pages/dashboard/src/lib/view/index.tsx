@@ -13,6 +13,7 @@ import {
 import { AppTable } from '@auction-nx/client/components/table';
 import { Button } from '@auction-nx/client/components/button';
 import { BidDialog } from '@auction-nx/client/components/dialog';
+import { ArrowPathIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const columnHelper = createColumnHelper<Bid>();
 
@@ -44,13 +45,13 @@ function DashboardView({
 
       columnHelper.accessor('status', {
         header: () => 'Status',
-        cell: (info) => {
-          info.getValue() === 'ACTIVE' ? (
-            <span className="text-gray-500">On Going</span>
+        cell: (info) => (
+          info.getValue() === 'ON_GOING' ? (
+            <p className="text-gray-500 flex gap-3">On Going <ArrowPathIcon className=' stroke-gray-500' width={20} height={20}/></p>
           ) : (
-            <span className="text-green-500">Completed</span>
-          );
-        },
+            <p className="text-green-500 flex gap-3" >Completed < CheckCircleIcon className='stroke-green-500' width={20} height={20}/></p>
+          )
+        ),
       }),
 
       columnHelper.accessor('expiredAt', {
