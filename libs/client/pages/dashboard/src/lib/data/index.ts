@@ -10,6 +10,7 @@ export function useDashboardData() {
     type: '',
   });
   useEffect(() => {
+    if(!getExpiresIn()) navigate('/login');
     if (
       addSeconds(new Date(), parseInt(getExpiresIn() || '0')).getTime() <
       new Date().getTime()
