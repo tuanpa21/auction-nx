@@ -55,6 +55,8 @@ export const useCreateData = (
   const { touched, values, errors, handleChange, handleSubmit, setFieldValue } =
     formik;
 
+    console.log(values);
+
   return {
     isLoading,
     touched,

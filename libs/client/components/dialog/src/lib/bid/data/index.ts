@@ -16,8 +16,8 @@ export default function useBidData(
     mutationFn: ({ data }: { data: TBid }) => {
       console.log(data);
       return http<string, any>({
-        method: 'post',
-        url: `items/auction`,
+        method: 'put',
+        url: `items/${open.id}`,
         data: JSON.stringify(data),
       });
     },
@@ -46,7 +46,6 @@ export default function useBidData(
 
   const formik = useFormik({
     initialValues: {
-      itemId: open.id,
       cost: 0,
     },
     enableReinitialize: true,

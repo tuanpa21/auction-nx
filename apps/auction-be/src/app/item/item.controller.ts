@@ -1,7 +1,7 @@
 import {
-  IRequest,
   ApiPaginateRes,
   ApiPassedRes,
+  IRequest,
 } from '@auction-nx/server/common';
 import { IsAuthController } from '@auction-nx/server/guard';
 import {
@@ -18,7 +18,7 @@ import {
 } from '@nestjs/common';
 import { ItemModelRes } from './item.response';
 import { ItemService } from './item.service';
-import { ItemAuctionCreateDto, ItemCreateDto, ItemQueryDto, ItemUpdateDto } from './item.validation';
+import { ItemCreateDto, ItemQueryDto, ItemUpdateDto } from './item.validation';
 
 @IsAuthController('items', 'items')
 export class ItemController {
@@ -42,12 +42,6 @@ export class ItemController {
   @ApiPassedRes(ItemModelRes, HttpStatus.CREATED)
   create(@Req() req: IRequest, @Body() data: ItemCreateDto) {
     return this.itemService.create(req.user, data);
-  }
-
-  @Post('auction')
-  @ApiPassedRes(ItemModelRes, HttpStatus.CREATED)
-  createItemAuction(@Req() req: IRequest, @Body() data: ItemAuctionCreateDto) {
-    return this.itemService.createItemAuction(req.user, data);
   }
 
   @Get('auctions/:itemId')

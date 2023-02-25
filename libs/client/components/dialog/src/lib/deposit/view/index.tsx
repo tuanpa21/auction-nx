@@ -25,6 +25,7 @@ function DepositDialog({
           setOpen({
             id: '',
             open: false,
+            type: 'deposit',
           });
         }}
       >
@@ -66,6 +67,7 @@ function DepositDialog({
                       setOpen({
                         id: '',
                         open: false,
+                        type: 'deposit',
                       });
                     }}
                   />
@@ -80,6 +82,7 @@ function DepositDialog({
                         placeholder="amount"
                         id="amount"
                         name="amount"
+                        min={10}
                         onChange={handleChange}
                         value={values.amount}
                         touched={touched.amount}
@@ -94,6 +97,7 @@ function DepositDialog({
                           setOpen({
                             id: '',
                             open: false,
+                            type: 'deposit',
                           });
                         }}
                       >

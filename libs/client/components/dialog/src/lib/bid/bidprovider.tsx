@@ -62,7 +62,7 @@ export function BidProvider<T>({
     cost: undefined,
   });
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: 1,
+    pageIndex: 0,
     pageSize: 10,
   });
 
@@ -75,9 +75,10 @@ export function BidProvider<T>({
     queryKey: [dataKey, pageIndex, pageSize, filters],
     retry: false,
     queryFn: async () => {
+      
       const response = await http<string, IAuctionItems<T>>({
         method: 'get',
-        url: `${dataKey}?page=${pageIndex}&size=${pageSize}&search=${JSON.stringify(filters)}`,
+        url: `${dataKey}?page=${pageIndex+1}&size=${pageSize}&search=${JSON.stringify(filters)}`,
       });
 
       return response;
@@ -92,7 +93,7 @@ export function BidProvider<T>({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
-    pageCount: data ? data.meta.total : -1,
+    pageCount: data ? data.meta.lastPage : -1,
     state: {
       pagination,
     },

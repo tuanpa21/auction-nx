@@ -26,7 +26,7 @@ function CreateItemDialog({
           setOpen({
             id: '',
             open: false,
-            type: '',
+            type: 'create',
           });
         }}
       >
@@ -68,7 +68,7 @@ function CreateItemDialog({
                       setOpen({
                         id: '',
                         open: false,
-                        type: '',
+                        type: 'create',
                       });
                     }}
                   />
@@ -91,6 +91,7 @@ function CreateItemDialog({
                       <Input
                         label="Start Price"
                         type="number"
+                        min={5}
                         placeholder="start price"
                         id="cost"
                         name="cost"
@@ -101,10 +102,10 @@ function CreateItemDialog({
                       />
                       <Input
                         label="Time Window"
-                        type="date"
+                        type="datetime-local"
                         placeholder="time window"
-                        id="expired_at"
-                        name="expired_at"
+                        id="expiredAt"
+                        name="expiredAt"
                         onChange={(e) => {
                           setFieldValue('expiredAt', e.target.value);
                         }}
@@ -122,7 +123,7 @@ function CreateItemDialog({
                           setOpen({
                             id: '',
                             open: false,
-                            type: '',
+                            type: 'create',
                           });
                         }}
                       >

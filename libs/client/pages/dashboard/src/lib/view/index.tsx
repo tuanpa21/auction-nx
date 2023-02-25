@@ -6,10 +6,14 @@ import { Tab } from '@headlessui/react';
 import { createColumnHelper } from '@tanstack/react-table';
 import { Bid } from '../data/utils';
 import { classNames } from '@auction-nx/client/utils';
-import { AuctionDialog, BidProvider } from '@auction-nx/client/components/dialog';
-import { AppTable } from '@auction-nx/client/components/table';
+import {
+  AuctionDialog,
+  BidProvider,
+} from '@auction-nx/client/components/dialog';
+import { AppTable, TablePagination } from '@auction-nx/client/components/table';
 import { Button } from '@auction-nx/client/components/button';
 import { BidDialog } from '@auction-nx/client/components/dialog';
+import { ArrowPathIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 
 const columnHelper = createColumnHelper<Bid>();
 
@@ -19,8 +23,8 @@ function DashboardView({
   setOpen,
 }: {
   tabs: string[];
-  open: { open: boolean; id: string, type: string };
-  setOpen: ({ open, id }: { open: boolean; id: string, type: string }) => void;
+  open: { open: boolean; id: string; type: string };
+  setOpen: ({ open, id }: { open: boolean; id: string; type: string }) => void;
 }) {
   const columns = useMemo(
     () => [
@@ -39,22 +43,20 @@ function DashboardView({
         cell: (info) => info.getValue(),
       }),
 
+      columnHelper.accessor('status', {
+        header: () => 'Status',
+        cell: (info) => (
+          info.getValue() === 'ON_GOING' ? (
+            <p className="text-gray-500 flex gap-3">On Going <ArrowPathIcon className=' stroke-gray-500' width={20} height={20}/></p>
+          ) : (
+            <p className="text-green-500 flex gap-3" >Completed < CheckCircleIcon className='stroke-green-500' width={20} height={20}/></p>
+          )
+        ),
+      }),
+
       columnHelper.accessor('expiredAt', {
         header: () => 'Duration',
         cell: (info) => new Date(info.getValue() as string).toUTCString(),
-      }),
-
-      columnHelper.display({
-        header: 'Bid',
-        cell: (props) => (
-          <Button
-            onClick={() => {
-              setOpen({ open: true, id: props.row.original.id || '', type: 'bid' });
-            }}
-          >
-            Bid
-          </Button>
-        ),
       }),
 
       columnHelper.display({
@@ -62,10 +64,32 @@ function DashboardView({
         cell: (props) => (
           <Button
             onClick={() => {
-              setOpen({ open: true, id: props.row.original.id || '', type: 'auctions' });
+              setOpen({
+                open: true,
+                id: props.row.original.id || '',
+                type: 'auctions',
+              });
             }}
           >
             View
+          </Button>
+        ),
+      }),
+
+      columnHelper.display({
+        header: 'Bid',
+        cell: (props) => (
+          <Button
+            disabled={props.row.original.status === 'COMPLETE'}
+            onClick={() => {
+              setOpen({
+                open: true,
+                id: props.row.original.id || '',
+                type: 'bid',
+              });
+            }}
+          >
+            Bid
           </Button>
         ),
       }),
@@ -121,10 +145,13 @@ function DashboardView({
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
+          <TablePagination />
         </div>
       </BaseLayout>
-     {open.type === 'bid' && <BidDialog setOpen={setOpen} open={open} />}
-     {open.type === 'auctions' && <AuctionDialog setOpen={setOpen} open={open} />}
+      {open.type === 'bid' && <BidDialog setOpen={setOpen} open={open} />}
+      {open.type === 'auctions' && (
+        <AuctionDialog setOpen={setOpen} open={open} />
+      )}
     </BidProvider>
   );
 }
