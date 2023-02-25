@@ -13,7 +13,9 @@ export default function addRefreshToken(axiosInstance: AxiosInstance) {
       const originalRequest = error.config;
 
       // If the error is not a 401 error, reject the promise with the error
-      if (error.response.status !== 401) {
+      const isErrorFromRefreshToken =
+        error.config?.url.includes('refresh-token');
+      if (error.response.status !== 401 || isErrorFromRefreshToken) {
         return Promise.reject(error);
       }
 
@@ -29,13 +31,12 @@ export default function addRefreshToken(axiosInstance: AxiosInstance) {
 
       // Otherwise, set isRefreshing to true and call the refresh token API
       isRefreshing = true;
-      const refreshToken = localStorage.getItem('refreshToken');
+      const refreshToken = localStorage.getItem('refreshToken'); // TODO: no need local, cookies already handled
 
       try {
         const response = await axiosInstance.post('/auth/refresh-token', {
           refreshToken,
         });
-
         const newAccessToken = response.data.token;
         localStorage.setItem('token', newAccessToken);
 
@@ -45,7 +46,7 @@ export default function addRefreshToken(axiosInstance: AxiosInstance) {
         isRefreshing = false;
 
         // Re-attempt the original request with the new access token
-        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`; // TODO: No need either
         return axiosInstance(originalRequest);
       } catch (error) {
         // If the refresh token API fails, log the user out and redirect to login page
