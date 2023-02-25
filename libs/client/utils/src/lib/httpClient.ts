@@ -1,9 +1,7 @@
-import { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
-import axios from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getAPIEndpoint } from './env';
 import {
   getRefreshToken,
-  getToken,
   setExpiresIn,
   setRefreshToken,
   setToken,
@@ -22,8 +20,8 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
     // add token to request
     explorer.interceptors.request.use(
       async (config) => {
-        const token = getToken();
-        if (token) config.headers.Authorization = `Bearer ${token}`;
+        // const token = getToken();
+        // if (token) config.headers.Authorization = `Bearer ${token}`;
         return config;
       },
       (error) => {
@@ -48,9 +46,9 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
     }
 
     // add token to request
-    requestConfig.headers = {
-      Authorization: `Bearer ${getToken()}`,
-    };
+    // requestConfig.headers = {
+    //   Authorization: `Bearer ${getToken()}`,
+    // };
 
     const response = await explorer.request(requestConfig);
 
