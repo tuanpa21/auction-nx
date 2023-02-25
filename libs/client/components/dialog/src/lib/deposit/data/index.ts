@@ -1,4 +1,4 @@
-import { getUser, http } from '@auction-nx/client/utils';
+import { getUser, httpClient } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -8,7 +8,7 @@ import { useState } from 'react';
 // import { useNavigationData } from '@auction-nx/client/components/navigation';
 
 export default function useDepositData(
-  setOpen: (value: { open: boolean; id: string, type:  string }) => void
+  setOpen: (value: { open: boolean; id: string; type: string }) => void
 ) {
   const [deposited, setDeposited] = useState(false);
 
@@ -19,7 +19,7 @@ export default function useDepositData(
     mutationFn: ({ data }: { data: TDepositItem }) => {
       const user = getUser() as IUser;
       console.log(user);
-      return http<string, any>({
+      return httpClient<string, any>({
         method: 'put',
         url: `wallets/${user.data.wallet.id}/deposits`,
         data: JSON.stringify(data),

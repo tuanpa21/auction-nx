@@ -13,6 +13,7 @@ import type { RedisClientOptions } from 'redis';
 import { ItemModule } from './item/item.module';
 import { JobModule } from './job/job.module';
 import { WalletModule } from './wallet/wallet.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { WalletModule } from './wallet/wallet.module';
     ItemModule,
     WalletModule,
     JobModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
   providers: [AppService],

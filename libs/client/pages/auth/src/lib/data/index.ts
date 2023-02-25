@@ -1,5 +1,5 @@
 import {
-  http,
+  httpClient,
   setExpiresIn,
   setRefreshToken,
   setToken,
@@ -31,7 +31,7 @@ export function useAuthData(type?: string) {
       };
       if (mutationType === 'register') reqData.name = 'test';
 
-      return http<string, IAuthResponse>({
+      return httpClient<string, IAuthResponse>({
         method: 'post',
         url: mutationType === 'login' ? 'auth/sign-in' : 'auth/sign-up',
         data: JSON.stringify({

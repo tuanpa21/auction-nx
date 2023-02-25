@@ -52,13 +52,14 @@ export function removeToken() {
   localStorage.removeItem('expiresIn');
 }
 
-export async function http<T, K>(requestConfig: AxiosRequestConfig<T>) {
+export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
   try {
     const explorer = axios.create({
       baseURL: getAPIEndpoint(),
       headers: {
         'Content-Type': 'application/json',
       },
+      // withCredentials: true,
     });
     // add token to request
     explorer.interceptors.request.use(
@@ -128,11 +129,15 @@ export async function http<T, K>(requestConfig: AxiosRequestConfig<T>) {
 }
 
 const refresh = async (explorer: AxiosInstance) => {
-  const response = await explorer.post('auth/refresh-token',{}, {
-    headers: {
-      Authorization: `${getRefreshToken()}`,
+  const response = await explorer.post(
+    'auth/refresh-token',
+    {},
+    {
+      headers: {
+        Authorization: `${getRefreshToken()}`,
+      },
     }
-  });
+  );
   if (response.status === 201) {
     setToken(response.data.accessToken);
     setRefreshToken(response.data.refreshToken);

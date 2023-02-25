@@ -1,4 +1,4 @@
-import { http } from '@auction-nx/client/utils';
+import { httpClient } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -13,7 +13,7 @@ export const useCreateData = (
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TCreateItem }) => {
       data.expiredAt = new Date(data.expiredAt).toISOString();
-      return http<string, ICreateItemRes>({
+      return httpClient<string, ICreateItemRes>({
         method: 'post',
         url: `items`,
         data: JSON.stringify(data),

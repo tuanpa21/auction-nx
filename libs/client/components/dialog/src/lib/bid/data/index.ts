@@ -1,4 +1,4 @@
-import { getAPIEndpoint, http } from '@auction-nx/client/utils';
+import { getAPIEndpoint, httpClient } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
@@ -15,7 +15,7 @@ export default function useBidData(
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TBid }) => {
       console.log(data);
-      return http<string, any>({
+      return httpClient<string, any>({
         method: 'put',
         url: `items/${open.id}`,
         data: JSON.stringify(data),

@@ -13,8 +13,9 @@ export class JobService {
    * Every hour run a job to counting all item auction has expired in next hours
    * Run counting time to the end and update status to COMPLETE and closed the auction
    */
-  @Cron(CronExpression.EVERY_HOUR)
+  @Cron(CronExpression.EVERY_10_MINUTES)
   async completedAuction() {
+    console.log('completedAuction');
     const items = await this.prisma.item.findMany({
       where: { expiredAt: { gte: new Date(), lte: addHours(new Date(), 1) } },
     });

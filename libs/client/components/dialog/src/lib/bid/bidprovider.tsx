@@ -8,7 +8,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { useQuery } from '@tanstack/react-query';
-import { http } from '@auction-nx/client/utils';
+import { httpClient } from '@auction-nx/client/utils';
 import { Filter, IAuctionItems } from './interface';
 
 interface BidState<T> {
@@ -74,7 +74,7 @@ export function BidProvider<T>({
     queryKey: [dataKey, pageIndex, pageSize, filters],
     retry: false,
     queryFn: async () => {
-      const response = await http<string, IAuctionItems<T>>({
+      const response = await httpClient<string, IAuctionItems<T>>({
         method: 'get',
         url: `${dataKey}?page=${
           pageIndex + 1
