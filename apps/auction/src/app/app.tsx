@@ -1,17 +1,22 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { Dashboard } from '@auction-nx/client/pages/dashboard';
 import { Auth } from '@auction-nx/client/pages/auth';
 import ErrorPage from '../error';
+import { getToken } from '@auction-nx/client/utils';
 
 export function App() {
+  const isLoggedIn = Boolean(getToken());
+
   return (
     <>
       <Routes>
         <Route
+          exact
           path="/"
-          element={<Link to="/login">Login</Link>}
-          errorElement={<ErrorPage />}
+          element={
+            isLoggedIn ? <Navigate to="/dashboard" /> : <Navigate to="/login" />
+          }
         />
         <Route
           path="/dashboard"

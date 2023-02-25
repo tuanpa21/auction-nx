@@ -5,6 +5,10 @@ import AuthView from './view/index';
 
 export default function Auth() {
   const { type } = useParams();
+
+  const { touched, values, errors, handleChange, handleSubmit, isLoading } =
+    useAuthData(type);
+
   if (type !== 'login' && type !== 'register') {
     return (
       <div id="error-page">
@@ -13,9 +17,6 @@ export default function Auth() {
       </div>
     );
   }
-
-  const { touched, values, errors, handleChange, handleSubmit, isLoading } =
-    useAuthData(type);
 
   return (
     <AuthView
