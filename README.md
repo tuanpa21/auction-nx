@@ -2,7 +2,7 @@
 
 ## Description
 
-Bid and Auction
+Auction is a simple auction application that allows users to create auctions, bid on auctions, and view the status of their auctions.
 
 ## Installation
 
@@ -13,12 +13,14 @@ Add this line to your application's:
 ```
 
 And then execute:
+```npm
+ npm run serve
+```
 
-    $ npm run serve 
-
-Or install it yourself as:
-    
-        $ npm install
+Or install it yourself as: 
+```npm
+ npm install
+```
 
 ## Usage
 
@@ -30,10 +32,10 @@ Or install it yourself as:
 
 ## Contributing
 
-1. Fork it (
-2. Create your feature branch (
-3. Commit your changes (
-4. Push to the branch (
+1. Fork it 
+2. Create your feature branch 
+3. Commit your changes 
+4. Push to the branch 
 5. Create a new Pull Request
 
 
