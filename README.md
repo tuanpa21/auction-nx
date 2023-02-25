@@ -28,17 +28,17 @@ And then execute:
 
 ## Usage
 
-1. ### To deposit funds, hover on the profile icon and click on the "Deposit" button. 
+1. To deposit funds, hover on the profile icon and click on the "Deposit" button. 
 #### ![deposit fund](./images/deposit-item.png)
 
 &nbsp;
 
-2. ### To create a new auction, hover on the profile icon and click on the "Create" button.
+2. To create a new auction, hover on the profile icon and click on the "Create" button.
 #### ![create item](./images/create-item.png)
 
 &nbsp;
 
-3. ### To bid on an auction, click on the "Bid" butto on the table.
+3. To bid on an auction, click on the "Bid" butto on the table.
 #### ![bid item on dashboard](./images/bid-item.png)
 
 &nbsp;
@@ -49,7 +49,7 @@ And then execute:
 &nbsp;
 
 
-5. ### To view "On Going" or "Completed" auctions, click on the "On Going" or "Completed" tab on the table.
+5. To view "On Going" or "Completed" auctions, click on the "On Going" or "Completed" tab on the table.
 #### ![dashboard](./images/dashboard.png)
 
 ## Contributing
