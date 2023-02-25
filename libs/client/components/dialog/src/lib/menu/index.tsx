@@ -96,6 +96,7 @@ export default function MenuPopUp({ items }: MenuProps) {
                             onClick={() => {
                               //logout
                               if (item.id === 'logout') {
+                                // TODO: logout api integration
                                 removeToken();
                                 changeState('/login');
                                 return;
