@@ -1,11 +1,9 @@
 import { Button } from '@auction-nx/client/components/button';
-import { useBid } from '@auction-nx/client/components/dialog';
+import { useBid, Filter } from '@auction-nx/client/components/dialog';
 import { flexRender } from '@tanstack/react-table';
 import { useEffect } from 'react';
 
-type TFilter = 'ON_GOING' | 'COMPLETED';
-
-export default function AppTable({ filter }: { filter: TFilter }) {
+export default function AppTable({ filter }: { filter: Filter }) {
   const { data, table, isLoading, isError, isSuccess, refetch, setFilters } =
     useBid();
   useEffect(() => {

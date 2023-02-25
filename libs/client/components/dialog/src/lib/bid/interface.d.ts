@@ -32,3 +32,12 @@ export interface IAuctionItems<T> {
     next?: number;
   };
 }
+
+type TFilter = 'ON_GOING' | 'COMPLETE';
+
+export type Filter = {
+  status: TFilter,
+  name?: string | undefined,
+  cost?: number | undefined,
+}
+

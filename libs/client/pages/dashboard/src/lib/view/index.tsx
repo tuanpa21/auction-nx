@@ -105,7 +105,9 @@ function DashboardView({
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
                 )}
               >
-                <AppTable filter={'ON_GOING'} />
+                <AppTable filter={{
+                  status: 'ON_GOING'
+                }} />
               </Tab.Panel>
               <Tab.Panel
                 className={classNames(
@@ -113,7 +115,9 @@ function DashboardView({
                   'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
                 )}
               >
-                <AppTable filter={'COMPLETED'} />
+                <AppTable filter={{
+                  status: 'COMPLETE'
+                }} />
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

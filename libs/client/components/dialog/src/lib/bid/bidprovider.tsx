@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-table';
 import { useQuery } from '@tanstack/react-query';
 import { http } from '@auction-nx/client/utils';
-import { IAuctionItems } from './interface';
+import { Filter, IAuctionItems } from './interface';
 
 interface BidState<T> {
   table: Table<T>;
@@ -20,7 +20,7 @@ interface BidState<T> {
   pageIndex: number;
   pageSize: number;
   refetch: () => void;
-  setFilters: (val: string) => void;
+  setFilters: (val: Filter) => void;
   data?: unknown[];
 }
 
@@ -39,7 +39,7 @@ interface BidProviderProps<T> {
   children: ReactNode;
   columns: ColumnDef<T, any>[];
   dataKey: string;
-  setFilters?: (val: string) => void;
+  setFilters?: (val: Filter) => void;
   parseData?: (data: unknown) => T[];
 }
 
@@ -48,6 +48,7 @@ export interface PaginationState {
   pageSize: number;
 }
 
+
 export function BidProvider<T>({
   children,
   columns,
@@ -55,7 +56,11 @@ export function BidProvider<T>({
 }: BidProviderProps<T>) {
   //TODO: query auctions
   // TODO: query user account
-  const [filters, setFilters] = useState('ON_GOING');
+  const [filters, setFilters] = useState<Filter>({
+    status: 'ON_GOING',
+    name: undefined,
+    cost: undefined,
+  });
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: 1,
     pageSize: 10,
@@ -72,7 +77,7 @@ export function BidProvider<T>({
     queryFn: async () => {
       const response = await http<string, IAuctionItems<T>>({
         method: 'get',
-        url: `${dataKey}?page=${pageIndex}&size=${pageSize}&search=${filters}`,
+        url: `${dataKey}?page=${pageIndex}&size=${pageSize}&search=${JSON.stringify(filters)}`,
       });
 
       return response;

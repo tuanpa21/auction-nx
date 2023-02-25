@@ -4,7 +4,7 @@ import { PrismaService } from '@auction-nx/server/prisma';
 import { ConfigService } from '@nestjs/config';
 import { IUserJwt } from '@auction-nx/server/common';
 import { ItemAuctionCreateDto, ItemCreateDto, ItemQueryDto, ItemUpdateDto } from './item.validation';
-import { Item, ItemAuction, Prisma } from '@prisma/client';
+import { Item, ItemAuction, ItemStatus, Prisma } from '@prisma/client';
 import { BadRequestException } from '@nestjs/common';
 
 @Injectable()
@@ -17,8 +17,41 @@ export class ItemService {
     private readonly prisma: PrismaService
   ) {}
 
+  getStatus(status: string) : ItemStatus {
+    switch (status) {
+      case 'ON_GOING':
+        return ItemStatus.ON_GOING;
+      case 'COMPLETE':
+        return ItemStatus.COMPLETE;
+      default:
+        return ItemStatus.ON_GOING;
+    }
+  }
+
   async getAll(info: IUserJwt, query: ItemQueryDto) {
+
+      //example query seach = {"status":"ON_GOING","name":"test","cost":100}
+      const { status, name, cost } = query?.search ? JSON.parse(query.search) : {}
+
     return this.paginate<Item, Prisma.ItemFindManyArgs>(this.prisma.item, {
+      where: {
+        AND: [
+          {
+            status:{ equals: status ? this.getStatus(status) : ItemStatus.ON_GOING }
+          },
+          {
+            cost: cost ? { equals: cost } : { not: undefined  }
+          },
+          {
+            name: name ?  {
+              startsWith: name,
+            } : { 
+              not: undefined
+            },
+          },
+          { name: name ? { endsWith: name } : { not: undefined }, } 
+        ]
+      },
       include: { auctions: { take: 1 } },
       orderBy: query.sort
         ? { [query.sort[0]]: query.sort[1] }
