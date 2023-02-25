@@ -9,10 +9,6 @@ import {
   setToken,
 } from './auth';
 
-export function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' '); // TODO: classnames
-}
-
 export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
   try {
     const explorer = axios.create({

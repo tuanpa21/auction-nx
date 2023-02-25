@@ -3,7 +3,7 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import { classNames, changeState, removeToken } from '@auction-nx/client/utils';
+import { changeState, classNames, removeToken } from '@auction-nx/client/utils';
 
 import { MenuProps } from './interface';
 import {

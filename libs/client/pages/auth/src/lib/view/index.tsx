@@ -59,7 +59,7 @@ function AuthView({
                 <Button isLoading={isLoading} type="submit" className="mt-10">
                   Register
                 </Button>
-                <a href="/login" className="mt-3 underline">
+                <a href="/login.tsx" className="mt-3 underline">
                   Login
                 </a>
               </>

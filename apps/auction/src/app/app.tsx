@@ -18,6 +18,7 @@ export function App() {
           element={<Dashboard />}
           errorElement={<ErrorPage />}
         />
+        {/*Type will be login, auth*/}
         <Route path="/:type" element={<Auth />} errorElement={<ErrorPage />} />
       </Routes>
     </>
