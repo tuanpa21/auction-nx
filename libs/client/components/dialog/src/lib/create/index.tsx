@@ -3,8 +3,15 @@ import { IProps } from '../interface';
 import CreateItemDialog from './view';
 
 export default function CreateView({ open, setOpen }: IProps) {
-  const { touched, values, errors, handleChange, handleSubmit, isLoading } =
-    useCreateData(setOpen);
+  const {
+    touched,
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    isLoading,
+    setFieldValue,
+  } = useCreateData(setOpen);
 
   return (
     <CreateItemDialog
@@ -13,6 +20,7 @@ export default function CreateView({ open, setOpen }: IProps) {
       touched={touched}
       values={values}
       errors={errors}
+      setFieldValue={setFieldValue}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       isLoading={isLoading}

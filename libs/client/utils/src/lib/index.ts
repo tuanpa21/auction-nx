@@ -108,7 +108,7 @@ export async function http<T, K>(requestConfig: AxiosRequestConfig<T>) {
 
     const response = await explorer.request(requestConfig);
 
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 201) {
       return response.data as K;
     } else {
       throw new Error(response.statusText);
@@ -128,7 +128,11 @@ export async function http<T, K>(requestConfig: AxiosRequestConfig<T>) {
 }
 
 const refresh = async (explorer: AxiosInstance) => {
-  const response = await explorer.post('auth/refresh-token');
+  const response = await explorer.post('auth/refresh-token',{}, {
+    headers: {
+      Authorization: `${getRefreshToken()}`,
+    }
+  });
   if (response.status === 201) {
     setToken(response.data.accessToken);
     setRefreshToken(response.data.refreshToken);

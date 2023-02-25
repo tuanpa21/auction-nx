@@ -8,14 +8,16 @@ export default function useBidData(
   open: {
     open: boolean;
     id: string;
+    type: string;
   },
-  setOpen: (value: { open: boolean; id: string }) => void
+  setOpen: (value: { open: boolean; id: string, type: string }) => void
 ) {
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TBid }) => {
+      console.log(data);
       return http<string, any>({
         method: 'post',
-        url: `items/${open.id}/bids`,
+        url: `items/auction`,
         data: JSON.stringify(data),
       });
     },
@@ -24,9 +26,14 @@ export default function useBidData(
       setOpen({
         id: '',
         open: false,
+        type: '',
       });
     },
     onError(error, variables, context) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+        return;
+      }
       toast.error('An error occurred');
     },
   });
@@ -39,7 +46,8 @@ export default function useBidData(
 
   const formik = useFormik({
     initialValues: {
-      price: 0,
+      itemId: open.id,
+      cost: 0,
     },
     enableReinitialize: true,
     validationSchema: bidSchema,

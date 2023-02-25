@@ -8,3 +8,4 @@ export * from './lib/deposit/view';
 export { default as MenuPopUp } from './lib/menu';
 export * from './lib/menu/interface.d';
 export * from './lib/menu';
+export { default as AuctionDialog } from './lib/auctions';

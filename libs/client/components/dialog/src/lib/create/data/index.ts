@@ -4,10 +4,12 @@ import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import { TCreateItem, createItemSchema } from './utils';
 import { ICreateItemRes } from '../interface';
+import { useBid } from '../../bid/bidprovider';
 
 export const useCreateData = (
-  setOpen: (value: { open: boolean; id: string }) => void
+  setOpen: (value: { open: boolean; id: string, type: string, }) => void
 ) => {
+  const { refetch } = useBid();
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TCreateItem }) => {
       data.expiredAt = new Date(data.expiredAt).toISOString();
@@ -23,7 +25,9 @@ export const useCreateData = (
         setOpen({
           id: '',
           open: false,
+          type: '',
         });
+        refetch();
       }
     },
     onError(error, variables, context) {
@@ -48,7 +52,8 @@ export const useCreateData = (
     onSubmit,
   });
 
-  const { touched, values, errors, handleChange, handleSubmit } = formik;
+  const { touched, values, errors, handleChange, handleSubmit, setFieldValue } =
+    formik;
 
   return {
     isLoading,
@@ -57,5 +62,6 @@ export const useCreateData = (
     errors,
     handleChange,
     handleSubmit,
+    setFieldValue,
   };
 };
