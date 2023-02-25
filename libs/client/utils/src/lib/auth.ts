@@ -5,7 +5,7 @@ export function setToken(token: string) {
 
 // get token from local storage
 export function getToken() {
-  return localStorage.getItem('token');
+  return localStorage.getItem('accessToken');
 }
 
 // set refresh token to local storage
@@ -39,7 +39,7 @@ export function getUser() {
 }
 
 export function removeToken() {
-  localStorage.removeItem('token');
+  localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
   localStorage.removeItem('expiresIn');
 }

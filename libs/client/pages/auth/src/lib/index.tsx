@@ -1,26 +1,29 @@
-import { useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { useAuthData } from './data';
 import AuthView from './view/index';
+import { TAuthType } from './interface';
 
 export default function Auth() {
-  const { type } = useParams();
+  const { pathname } = useLocation();
 
   const { touched, values, errors, handleChange, handleSubmit, isLoading } =
-    useAuthData(type);
+    useAuthData(pathname as TAuthType);
 
-  if (type !== 'login' && type !== 'register') {
+  if (pathname !== '/login' && pathname !== '/register') {
     return (
-      <div id="error-page">
+      <div className=" w-full h-screen flex flex-col justify-center items-center">
         <h1>Oops!</h1>
-        <p>The page you're trying to access isn't exist.</p>
-      </div>
+        <p>Sorry, an unexpected error has occurred.</p>
+        <Link to="/" className=" underline">Go to home</Link>
+        <p>{/* <i>{error.statusText || error.message}</i> */}</p>
+    </div>
     );
   }
 
   return (
     <AuthView
-      type={type}
+      pathname={pathname as TAuthType}
       touched={touched}
       values={values}
       errors={errors}
