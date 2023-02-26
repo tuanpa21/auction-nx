@@ -24,3 +24,8 @@ export interface APIResponse<K> {
     };
   };
 }
+
+export interface IBidCheckProps {
+  bid: Bid;
+  setOpen: ({ open, id }: { open: boolean; id: string; type: string }) => void;
+}

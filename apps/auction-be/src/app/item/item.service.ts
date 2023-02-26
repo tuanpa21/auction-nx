@@ -66,7 +66,12 @@ export class ItemService {
   async getOne(info: IUserJwt, id: string) {
     return this.prisma.item.findUnique({
       where: { id },
-      include: { auctions: { take: 10 } },
+      include: {
+        auctions: {
+          take: 10,
+          orderBy: { createdAt: 'desc' },
+        },
+      },
     });
   }
 
