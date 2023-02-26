@@ -3,8 +3,10 @@ export interface IProps {
   password: string;
 }
 
+type TAuthType = '/login' | '/register';
+
 export interface IAuthProps {
-  type?: string;
+  pathname?: TAuthType;
   isLoading: boolean;
   touched: FormikTouched<IProps>;
   values: IProps;

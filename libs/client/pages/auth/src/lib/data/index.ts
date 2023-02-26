@@ -1,21 +1,13 @@
-import {
-  httpClient,
-  setExpiresIn,
-  setRefreshToken,
-  setToken,
-  setUser,
-} from '@auction-nx/client/utils';
+import { httpClient, setUser } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Authentication, authenticationSchema } from './utils';
 import { useNavigate } from 'react-router-dom';
-import { IAuthResponse } from '../interface';
+import { IAuthResponse, TAuthType } from '../interface';
 
-type TAuthType = 'login' | 'register';
-
-export function useAuthData(type?: string) {
+export function useAuthData(pathname?: TAuthType) {
   const navigate = useNavigate();
   const { isLoading, mutate } = useMutation({
     mutationFn: ({
@@ -29,11 +21,11 @@ export function useAuthData(type?: string) {
       const reqData: any = {
         ...data,
       };
-      if (mutationType === 'register') reqData.name = 'test';
+      if (mutationType === '/register') reqData.name = 'test';
 
       return httpClient<string, IAuthResponse>({
         method: 'post',
-        url: mutationType === 'login' ? 'auth/sign-in' : 'auth/sign-up',
+        url: mutationType === '/login' ? 'auth/sign-in' : 'auth/sign-up',
         data: JSON.stringify({
           ...reqData,
         }),
@@ -41,9 +33,6 @@ export function useAuthData(type?: string) {
     },
     onSuccess(data, variables, context) {
       if (data?.data) {
-        setToken(data?.data.accessToken);
-        setRefreshToken(data?.data.refreshToken);
-        setExpiresIn(data?.data.expireIns.toString());
         setUser(data?.data.user);
         //TODO: redirect to dashboard
         toast.success('Successful');
@@ -59,12 +48,11 @@ export function useAuthData(type?: string) {
     },
   });
   const onSubmit = (values: { email: string; password: string }) => {
-    console.log(values);
-    if (type === 'login') {
-      mutate({ data: values, mutationType: 'login' });
+    if (pathname === '/login') {
+      mutate({ data: values, mutationType: '/login' });
       return;
     }
-    mutate({ data: values, mutationType: 'register' });
+    mutate({ data: values, mutationType: '/register' });
   };
 
   const formik = useFormik({
@@ -78,12 +66,6 @@ export function useAuthData(type?: string) {
   });
 
   const { touched, values, errors, handleChange, handleSubmit } = formik;
-
-  useEffect(() => {
-    if (type !== 'login' && type !== 'register') {
-      window.location.href = '/login';
-    }
-  }, [type]);
 
   return {
     isLoading,

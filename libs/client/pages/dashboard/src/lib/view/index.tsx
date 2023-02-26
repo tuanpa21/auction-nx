@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { memo, useMemo, useState } from 'react';
+import { memo, useMemo } from 'react';
 import { BaseLayout } from '@auction-nx/client/components/layout';
 import { Tab } from '@headlessui/react';
 import { createColumnHelper } from '@tanstack/react-table';
@@ -28,11 +28,6 @@ function DashboardView({
 }) {
   const columns = useMemo(
     () => [
-      columnHelper.accessor('id', {
-        header: () => 'ID',
-        cell: (info) => info.getValue(),
-      }),
-
       columnHelper.accessor('name', {
         header: () => 'Current Price',
         cell: (info) => info.getValue(),
@@ -48,7 +43,6 @@ function DashboardView({
         cell: (info) =>
           info.getValue() === 'ON_GOING' ? (
             <p className="text-gray-500 flex gap-3">
-              On Going{' '}
               <ArrowPathIcon
                 className=" stroke-gray-500"
                 width={20}
@@ -57,7 +51,6 @@ function DashboardView({
             </p>
           ) : (
             <p className="text-green-500 flex gap-3">
-              Completed{' '}
               <CheckCircleIcon
                 className="stroke-green-500"
                 width={20}

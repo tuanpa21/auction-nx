@@ -28,11 +28,29 @@ And then execute:
 
 ## Usage
 
-1. To deposit funds, hover on the profile icon and click on the "Deposit" button.
+1. To deposit funds, hover on the profile icon and click on the "Deposit" button. 
+#### ![deposit fund](./images/deposit-item.png)
+
+&nbsp;
+
 2. To create a new auction, hover on the profile icon and click on the "Create" button.
+#### ![create item](./images/create-item.png)
+
+&nbsp;
+
 3. To bid on an auction, click on the "Bid" butto on the table.
+#### ![bid item on dashboard](./images/bid-item.png)
+
+&nbsp;
+
 4. To view the details of an auction, click on the "View" button on the table.
+#### ![view auction](./images/view-auction.png)
+
+&nbsp;
+
+
 5. To view "On Going" or "Completed" auctions, click on the "On Going" or "Completed" tab on the table.
+#### ![dashboard](./images/dashboard.png)
 
 ## Contributing
 

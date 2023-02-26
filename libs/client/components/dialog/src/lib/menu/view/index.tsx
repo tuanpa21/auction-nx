@@ -1,9 +1,9 @@
 import { Menu, Transition } from '@headlessui/react';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-import { classNames, changeState, removeToken } from '@auction-nx/client/utils';
+import { classNames, changeState } from '@auction-nx/client/utils';
 
 import { MenuItem } from '../interface';
 import {
@@ -109,7 +109,7 @@ export default function MenuPopUp({
                                 return;
                               }
                               close();
-                              changeState(item.href);
+                              // changeState(item.href);
                               setOpen({
                                 id: item.id,
                                 open: true,

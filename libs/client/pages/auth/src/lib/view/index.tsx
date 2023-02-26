@@ -4,7 +4,7 @@ import { IAuthProps } from '../interface';
 import { memo } from 'react';
 
 function AuthView({
-  type,
+  pathname,
   touched,
   values,
   errors,
@@ -18,7 +18,7 @@ function AuthView({
         <div className="flex w-96 flex-col items-stretch justify-start">
           {
             <h1 className="text-left text-3xl font-bold">
-              {type === 'login' ? 'Login' : 'Register'}
+              {pathname === '/login' ? 'Login' : 'Register'}
             </h1>
           }
           <Input
@@ -44,7 +44,7 @@ function AuthView({
             errors={errors.password}
           />
           <div className=" flex w-full flex-col items-center justify-center">
-            {type === 'login' && (
+            {pathname === '/login' && (
               <>
                 <Button isLoading={isLoading} type="submit" className="mt-10">
                   Login
@@ -54,7 +54,7 @@ function AuthView({
                 </a>
               </>
             )}
-            {type === 'register' && (
+            {pathname === '/register' && (
               <>
                 <Button isLoading={isLoading} type="submit" className="mt-10">
                   Register
