@@ -2,6 +2,7 @@ import { Button } from '@auction-nx/client/components/button';
 import { Input } from '@auction-nx/client/components/form';
 import { IAuthProps } from '../interface';
 import { memo } from 'react';
+import { ROUTES } from '@auction-nx/client/utils';
 
 function AuthView({
   pathname,
@@ -18,7 +19,7 @@ function AuthView({
         <div className="flex w-96 flex-col items-stretch justify-start">
           {
             <h1 className="text-left text-3xl font-bold">
-              {pathname === '/login' ? 'Login' : 'Register'}
+              {pathname === ROUTES.login ? 'Login' : 'Register'}
             </h1>
           }
           <Input
@@ -44,7 +45,7 @@ function AuthView({
             errors={errors.password}
           />
           <div className=" flex w-full flex-col items-center justify-center">
-            {pathname === '/login' && (
+            {pathname === ROUTES.login && (
               <>
                 <Button isLoading={isLoading} type="submit" className="mt-10">
                   Login

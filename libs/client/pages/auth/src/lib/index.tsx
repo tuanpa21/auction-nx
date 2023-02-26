@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useAuthData } from './data';
 import AuthView from './view/index';
 import { TAuthType } from './interface';
+import { ROUTES } from '@auction-nx/client/utils';
 
 export default function Auth() {
   const { pathname } = useLocation();
@@ -10,7 +11,7 @@ export default function Auth() {
   const { touched, values, errors, handleChange, handleSubmit, isLoading } =
     useAuthData(pathname as TAuthType);
 
-  if (pathname !== '/login' && pathname !== '/register') {
+  if (pathname !== ROUTES.login && pathname !== ROUTES.register) {
     return (
       <div className=" w-full h-screen flex flex-col justify-center items-center">
         <h1>Oops!</h1>

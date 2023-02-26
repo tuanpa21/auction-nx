@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import { Dashboard } from '@auction-nx/client/pages/dashboard';
 import { Auth } from '@auction-nx/client/pages/auth';
 import ErrorPage from '../error';
-import { dashboard, home } from './interface.d';
 import WithAuth from './hoc';
+import { ROUTES } from '@auction-nx/client/utils';
 
 export function App() {
   return (
@@ -12,18 +12,21 @@ export function App() {
       <Routes>
         <Route
           exact
-          path={home}
+          path={ROUTES.home}
           element={<WithAuth children={<Dashboard />} />}
         />
         <Route
-          path={dashboard}
+          path={ROUTES.dashboard}
           element={<Dashboard />}
           errorElement={<ErrorPage />}
         />
-        {/*Type will be login, auth*/}
-        <Route path="/login" element={<Auth />} errorElement={<ErrorPage />} />
         <Route
-          path="/register"
+          path={ROUTES.login}
+          element={<Auth />}
+          errorElement={<ErrorPage />}
+        />
+        <Route
+          path={ROUTES.register}
           element={<Auth />}
           errorElement={<ErrorPage />}
         />

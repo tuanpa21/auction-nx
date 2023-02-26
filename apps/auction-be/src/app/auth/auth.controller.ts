@@ -99,6 +99,6 @@ export class AuthController {
       req.cookies.refreshToken || req.headers['authorization'];
     const response = await this.authService.refresh(req.user, refreshToken);
 
-    return this.guardUtil.setCookie(res, response).send({ data: 'response' });
+    return this.guardUtil.setCookie(res, response).send({ data: response });
   }
 }

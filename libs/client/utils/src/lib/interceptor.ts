@@ -1,4 +1,5 @@
 import { AxiosInstance } from 'axios';
+import { ROUTES } from './routes';
 
 export default function addRefreshToken(axiosInstance: AxiosInstance) {
   let isRefreshing = false;
@@ -50,7 +51,7 @@ export default function addRefreshToken(axiosInstance: AxiosInstance) {
         // localStorage.removeItem('token');
         // localStorage.removeItem('refreshToken');
 
-        window.location.href = '/login';
+        window.location.href = ROUTES.login;
       }
     }
   );

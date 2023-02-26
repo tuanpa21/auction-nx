@@ -1,11 +1,11 @@
-import { httpClient, removeUser } from '@auction-nx/client/utils';
+import { httpClient, removeUser, ROUTES } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export function useMenuData() {
   const navigate = useNavigate();
-  const { isLoading, mutate } = useMutation({
+  const { isLoading, mutate: logoutMutation } = useMutation({
     mutationFn: () => {
       return httpClient<string, any>({
         method: 'post',
@@ -15,7 +15,7 @@ export function useMenuData() {
     onSuccess(data, variables, context) {
       toast.success('Successful');
       removeUser();
-      navigate('/login');
+      navigate(ROUTES.login);
     },
     onError(error, variables, context) {
       if (error instanceof Error) {
@@ -27,8 +27,7 @@ export function useMenuData() {
   });
 
   const onLogout = () => {
-    console.log('logout');
-    mutate();
+    logoutMutation();
   };
 
   return {

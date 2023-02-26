@@ -1,7 +1,6 @@
-import { httpClient, setUser } from '@auction-nx/client/utils';
+import { httpClient, ROUTES, setUser } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Authentication, authenticationSchema } from './utils';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +24,7 @@ export function useAuthData(pathname?: TAuthType) {
 
       return httpClient<string, IAuthResponse>({
         method: 'post',
-        url: mutationType === '/login' ? 'auth/sign-in' : 'auth/sign-up',
+        url: mutationType === ROUTES.login ? 'auth/sign-in' : 'auth/sign-up',
         data: JSON.stringify({
           ...reqData,
         }),
@@ -36,7 +35,7 @@ export function useAuthData(pathname?: TAuthType) {
         setUser(data?.data.user);
         //TODO: redirect to dashboard
         toast.success('Successful');
-        navigate('/dashboard');
+        navigate(ROUTES.dashboard);
       }
     },
     onError(error, variables, context) {
@@ -48,11 +47,11 @@ export function useAuthData(pathname?: TAuthType) {
     },
   });
   const onSubmit = (values: { email: string; password: string }) => {
-    if (pathname === '/login') {
-      mutate({ data: values, mutationType: '/login' });
+    if (pathname === ROUTES.login) {
+      mutate({ data: values, mutationType: ROUTES.login });
       return;
     }
-    mutate({ data: values, mutationType: '/register' });
+    mutate({ data: values, mutationType: ROUTES.register });
   };
 
   const formik = useFormik({
