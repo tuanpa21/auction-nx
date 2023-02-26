@@ -22,7 +22,7 @@ export default function addRefreshToken(axiosInstance: AxiosInstance) {
 
       // If the refresh token API is already being called, add the original request to the refreshSubscribers array
       if (isRefreshing) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
           refreshSubscribers.push(() => {
             resolve(axiosInstance(originalRequest));
           });

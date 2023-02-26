@@ -99,7 +99,9 @@ export class ItemService {
     const lastAuc = item.auctions[0];
 
     if (item.cost >= data.cost)
-      throw new BadRequestException(`The price must be larger`);
+      throw new BadRequestException(
+        `The price must be larger then current price`
+      );
     if (item.userId === info.sub)
       throw new BadRequestException(
         `The owner can't join yourself item auction`

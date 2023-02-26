@@ -43,6 +43,7 @@ function AuthView({
             value={values.password}
             touched={touched.password}
             errors={errors.password}
+            autoComplete="password"
           />
           <div className=" flex w-full flex-col items-center justify-center">
             {pathname === ROUTES.login && (
