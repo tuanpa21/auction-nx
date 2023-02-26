@@ -58,10 +58,3 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
   }
 }
 
-export function addSeconds(date: Date, seconds: number) {
-  const dateCopy = new Date(date.getTime());
-
-  dateCopy.setSeconds(dateCopy.getSeconds() + seconds);
-
-  return dateCopy;
-}
