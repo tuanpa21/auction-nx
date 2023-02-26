@@ -3,7 +3,7 @@ import { IBidCheckProps } from '../interface.d';
 import { getTimeBetweenDates } from '@auction-nx/client/utils';
 import { toast } from 'react-toastify';
 
-export function ColumnBidCheck({ bid, setOpen }: IBidCheckProps) {
+export function ColumnBidCheckButton({ bid, setOpen }: IBidCheckProps) {
   return (
     <Button
       disabled={bid.status === 'COMPLETE'}
