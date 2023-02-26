@@ -2,6 +2,8 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getAPIEndpoint } from './env';
 import addRefreshToken from './interceptor';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
   try {
     const explorer = axios.create({

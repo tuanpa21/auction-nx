@@ -3,6 +3,7 @@ import { Input } from '@auction-nx/client/components/form';
 import { IAuthProps } from '../interface';
 import { memo } from 'react';
 import { ROUTES } from '@auction-nx/client/utils';
+import { Link } from 'react-router-dom';
 
 function AuthView({
   pathname,
@@ -51,9 +52,9 @@ function AuthView({
                 <Button isLoading={isLoading} type="submit" className="mt-10">
                   Login
                 </Button>
-                <a href="/register" className="mt-3  underline">
+                <Link to={ROUTES.register} className="mt-3  underline">
                   Register
-                </a>
+                </Link>
               </>
             )}
             {pathname === '/register' && (
@@ -61,9 +62,9 @@ function AuthView({
                 <Button isLoading={isLoading} type="submit" className="mt-10">
                   Register
                 </Button>
-                <a href="/login.tsx" className="mt-3 underline">
+                <Link to={ROUTES.login} className="mt-3 underline">
                   Login
-                </a>
+                </Link>
               </>
             )}
           </div>

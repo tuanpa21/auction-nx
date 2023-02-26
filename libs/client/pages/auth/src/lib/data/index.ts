@@ -2,7 +2,7 @@ import { httpClient, ROUTES, setUser } from '@auction-nx/client/utils';
 import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
-import { Authentication, authenticationSchema } from './utils';
+import { Authentication, authenticationSchema } from './config';
 import { useNavigate } from 'react-router-dom';
 import { IAuthResponse, TAuthType } from '../interface';
 
@@ -51,7 +51,7 @@ export function useAuthData(pathname?: TAuthType) {
       mutate({ data: values, mutationType: ROUTES.login });
       return;
     }
-    mutate({ data: values, mutationType: ROUTES.register });
+    mutate({ data: values, mutationType: ROUTES.register as TAuthType });
   };
 
   const formik = useFormik({
