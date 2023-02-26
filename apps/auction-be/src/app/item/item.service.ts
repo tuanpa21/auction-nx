@@ -101,7 +101,6 @@ export class ItemService {
         select: { amount: true },
       }),
     ]);
-    this.logger.log(item?.auctions[0]);
     const lastAuc = item.auctions[0];
 
     if (item.cost >= data.cost)
