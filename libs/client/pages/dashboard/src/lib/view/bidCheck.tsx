@@ -9,7 +9,7 @@ export function ColumnBidCheckButton({ bid, setOpen }: IBidCheckProps) {
       disabled={bid.status === 'COMPLETE'}
       onClick={() => {
         const currentItemBidDate = new Date(
-          bid.updatedAt || bid.auctions[0].createdAt
+          bid.updatedAt
         );
         const incomingItemBidDate = new Date(new Date().toUTCString());
         const diff = getTimeBetweenDates(

@@ -15,9 +15,10 @@ export class JobService {
    */
   @Cron(CronExpression.EVERY_5_MINUTES)
   async completedAuction() {
+    
     const items = await this.prisma.item.findMany({
       where: {
-        expiredAt: { gte: new Date(), lte: addHours(new Date(), 1) },
+        expiredAt: { lte: new Date().toISOString() },
         status: 'ON_GOING',
       },
     });

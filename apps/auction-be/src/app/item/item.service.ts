@@ -56,7 +56,7 @@ export class ItemService {
           { name: name ? { endsWith: name } : { not: undefined } },
         ],
       },
-      include: { auctions: { take: 1, orderBy: { createdAt: 'desc' } } },
+      include: { auctions: { take: 1 } },
       orderBy: query.sort
         ? { [query.sort[0]]: query.sort[1] }
         : { createdAt: 'desc' },
