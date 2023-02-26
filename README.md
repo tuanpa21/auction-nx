@@ -6,20 +6,46 @@ Auction is a simple auction application that allows users to create auctions, bi
 
 ## Installation
 
-Add this line to your application's:
+Install dependencies:
 
 ```npm
- npm install
+  npm install
 ```
 
-And then execute:
-1.  run a local or docker postgres database and change the DATABASE_URL in the .env file to point to the database.
-2.  run a redis server or ignore it
-3. run the following command to create the database tables:
+To run the apps:
 
+For frontend app
 ```npm
- npm run prisma:migrate-dev
-``` 
+  npm run serve-fe
+```
+or (require `nx` cli installed) 
+```npm
+  nx serve auction
+```
+
+For backend app:
+- Install latest `redis`
+- Start `redis-server` locally, or use docker to run your redis service
+- Install postgres:
+```npm
+  brew install postgresql@14
+```
+- Now run up a service for postgresql, which will hold our DB instance
+```npm
+  brew service start postgresql@14
+```
+- Check the `DATABASE_URL` in the `.env` file, it will point to your local DB, change it as your need.
+- Run `npm run prisma:migrate-dev` to for DB migration. After this step we are good to go.
+- Now to run the BE app up
+```npm
+  npm run serve-be
+```
+or (require `nx` cli installed)
+```npm
+  nx serve auction-be
+```
+
+Or if you want to run both BE and FE in 1 command, simple run this:
 
 ```npm
  npm run serve
