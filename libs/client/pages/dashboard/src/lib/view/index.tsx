@@ -14,6 +14,7 @@ import { AppTable, TablePagination } from '@auction-nx/client/components/table';
 import { Button } from '@auction-nx/client/components/button';
 import { BidDialog } from '@auction-nx/client/components/dialog';
 import { ArrowPathIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { ColumnBidCheck } from './bidCheck';
 
 const columnHelper = createColumnHelper<Bid>();
 
@@ -29,7 +30,7 @@ function DashboardView({
   const columns = useMemo(
     () => [
       columnHelper.accessor('name', {
-        header: () => 'Current Price',
+        header: () => 'Name',
         cell: (info) => info.getValue(),
       }),
 
@@ -42,7 +43,7 @@ function DashboardView({
         header: () => 'Status',
         cell: (info) =>
           info.getValue() === 'ON_GOING' ? (
-            <p className="text-gray-500 flex gap-3">
+            <p className="text-gray-500 flex gap-3 justify-center">
               <ArrowPathIcon
                 className=" stroke-gray-500"
                 width={20}
@@ -50,7 +51,7 @@ function DashboardView({
               />
             </p>
           ) : (
-            <p className="text-green-500 flex gap-3">
+            <p className="text-green-500 flex gap-3 justify-center">
               <CheckCircleIcon
                 className="stroke-green-500"
                 width={20}
@@ -85,18 +86,7 @@ function DashboardView({
       columnHelper.display({
         header: 'Bid',
         cell: (props) => (
-          <Button
-            disabled={props.row.original.status === 'COMPLETE'}
-            onClick={() => {
-              setOpen({
-                open: true,
-                id: props.row.original.id || '',
-                type: 'bid',
-              });
-            }}
-          >
-            Bid
-          </Button>
+          <ColumnBidCheck bid={props.row.original} setOpen={setOpen} />
         ),
       }),
     ],

@@ -56,7 +56,7 @@ export class ItemService {
           { name: name ? { endsWith: name } : { not: undefined } },
         ],
       },
-      include: { auctions: { take: 1 } },
+      include: { auctions: { take: 1, orderBy: { createdAt: 'desc' } } },
       orderBy: query.sort
         ? { [query.sort[0]]: query.sort[1] }
         : { createdAt: 'desc' },
@@ -66,7 +66,12 @@ export class ItemService {
   async getOne(info: IUserJwt, id: string) {
     return this.prisma.item.findUnique({
       where: { id },
-      include: { auctions: { take: 10 } },
+      include: {
+        auctions: {
+          take: 10,
+          orderBy: { createdAt: 'desc' },
+        },
+      },
     });
   }
 
@@ -96,6 +101,7 @@ export class ItemService {
         select: { amount: true },
       }),
     ]);
+    this.logger.log(item?.auctions[0]);
     const lastAuc = item.auctions[0];
 
     if (item.cost >= data.cost)
