@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
 import { TBid, bidSchema } from './utils';
+import { useBid } from '../bidprovider';
 
 export default function useBidData(
   open: {
@@ -12,6 +13,7 @@ export default function useBidData(
   },
   setOpen: (value: { open: boolean; id: string; type: string }) => void
 ) {
+  const { refetch } = useBid();
   const { isLoading, mutate } = useMutation({
     mutationFn: ({ data }: { data: TBid }) => {
       console.log(data);
@@ -28,6 +30,7 @@ export default function useBidData(
         open: false,
         type: '',
       });
+      refetch();
     },
     onError(error, variables, context) {
       if (error instanceof Error) {
