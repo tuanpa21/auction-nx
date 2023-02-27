@@ -1,8 +1,10 @@
 import { useMenuData } from './data';
 import { MenuProps } from './interface';
-import MenuPopUp from './view';
+import MenuPopUpView from './view';
 
-export default function MenuView({ items }: MenuProps) {
+export default function MenuPopup({ items }: MenuProps) {
   const { onLogout, isLoading } = useMenuData();
-  return <MenuPopUp items={items} onLogout={onLogout} isLoading={isLoading} />;
+  return (
+    <MenuPopUpView items={items} onLogout={onLogout} isLoading={isLoading} />
+  );
 }

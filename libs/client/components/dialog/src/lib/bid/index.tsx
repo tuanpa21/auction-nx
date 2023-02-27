@@ -1,13 +1,13 @@
 import { IProps } from '../interface';
 import useBidData from './data';
-import BidItem from './view';
+import BidView from './view';
 
-export default function BidView({ open, setOpen }: IProps) {
+export default function BidItem({ open, setOpen }: IProps) {
   const { touched, values, errors, handleChange, handleSubmit, isLoading } =
     useBidData(open, setOpen);
 
   return (
-    <BidItem
+    <BidView
       open={open}
       setOpen={setOpen}
       touched={touched}

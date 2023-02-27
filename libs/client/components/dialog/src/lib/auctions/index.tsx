@@ -1,16 +1,19 @@
 import { IProps } from '../interface';
 import { useAuctionsData } from './data';
-import AuctionsDialog from './view';
+import AuctionsView from './view';
 
-export default function AuctionsView({ open, setOpen }: IProps) {
-   const { data, isLoading, isSuccess, isError } = useAuctionsData({itemId: open.id});
-   return ( <AuctionsDialog
+export default function AuctionsDialog({ open, setOpen }: IProps) {
+  const { data, isLoading, isSuccess, isError } = useAuctionsData({
+    itemId: open.id,
+  });
+  return (
+    <AuctionsView
       open={open}
       setOpen={setOpen}
       data={data}
-        isLoading={isLoading}
-        isSuccess={isSuccess}
-        isError={isError}
+      isLoading={isLoading}
+      isSuccess={isSuccess}
+      isError={isError}
     />
   );
 }

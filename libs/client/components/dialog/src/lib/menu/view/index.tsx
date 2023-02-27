@@ -3,7 +3,7 @@ import { UserCircleIcon } from '@heroicons/react/24/outline';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { classNames, changeState } from '@auction-nx/client/utils';
+import { classNames } from '@auction-nx/client/utils';
 
 import { MenuItem } from '../interface';
 import {
@@ -12,7 +12,7 @@ import {
 } from '@auction-nx/client/components/dialog';
 import { LogoutDialogView } from './logout';
 
-export default function MenuPopUp({
+export default function MenuPopUpView({
   items,
   onLogout,
   isLoading,
@@ -109,7 +109,6 @@ export default function MenuPopUp({
                                 return;
                               }
                               close();
-                              // changeState(item.href);
                               setOpen({
                                 id: item.id,
                                 open: true,

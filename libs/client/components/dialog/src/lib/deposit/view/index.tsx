@@ -6,7 +6,7 @@ import { Button } from '@auction-nx/client/components/button';
 import { Input } from '@auction-nx/client/components/form';
 import { IDeposit } from '../interface';
 
-function DepositDialog({
+function DepositDialogView({
   open,
   setOpen,
   touched,
@@ -122,4 +122,4 @@ function DepositDialog({
   );
 }
 
-export default memo(DepositDialog);
+export default memo(DepositDialogView);

@@ -1,8 +1,8 @@
 import { useCreateData } from './data';
 import { IProps } from '../interface';
-import CreateItemDialog from './view';
+import CreateItemDialogView from './view';
 
-export default function CreateView({ open, setOpen }: IProps) {
+export default function CreateItem({ open, setOpen }: IProps) {
   const {
     touched,
     values,
@@ -14,7 +14,7 @@ export default function CreateView({ open, setOpen }: IProps) {
   } = useCreateData(setOpen);
 
   return (
-    <CreateItemDialog
+    <CreateItemDialogView
       open={open}
       setOpen={setOpen}
       touched={touched}

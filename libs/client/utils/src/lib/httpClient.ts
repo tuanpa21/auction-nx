@@ -56,7 +56,6 @@ export async function httpClient<T, K>(requestConfig: AxiosRequestConfig<T>) {
       }
     }
 
-    if (error instanceof Error) throw new Error(error.message);
+    if (error instanceof Error) throw new Error(error?.message || error);
   }
 }
-

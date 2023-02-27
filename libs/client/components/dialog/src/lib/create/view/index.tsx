@@ -6,7 +6,7 @@ import { Button } from '@auction-nx/client/components/button';
 import { Input } from '@auction-nx/client/components/form';
 import { ICreate } from '../interface';
 
-function CreateItemDialog({
+function CreateItemView({
   open,
   setOpen,
   touched,
@@ -148,4 +148,4 @@ function CreateItemDialog({
   );
 }
 
-export default memo(CreateItemDialog);
+export default memo(CreateItemView);
