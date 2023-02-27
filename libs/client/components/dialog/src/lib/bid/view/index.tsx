@@ -6,7 +6,7 @@ import { Fragment, memo } from 'react';
 import { Button } from '@auction-nx/client/components/button';
 import { Input } from '@auction-nx/client/components/form';
 
-function BidItem({
+function BidView({
   open,
   setOpen,
   touched,
@@ -121,4 +121,4 @@ function BidItem({
   );
 }
 
-export default memo(BidItem);
+export default memo(BidView);

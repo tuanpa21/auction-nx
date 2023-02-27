@@ -1,13 +1,13 @@
 import useDepositData from './data';
 import { IProps } from '../interface';
-import DepositDialog from './view';
+import DepositDialogView from './view';
 
-export default function DepositView({ open, setOpen }: IProps) {
+export default function DepositDialog({ open, setOpen }: IProps) {
   const { touched, values, errors, handleChange, handleSubmit, isLoading } =
     useDepositData(setOpen);
 
   return (
-    <DepositDialog
+    <DepositDialogView
       open={open}
       setOpen={setOpen}
       touched={touched}
