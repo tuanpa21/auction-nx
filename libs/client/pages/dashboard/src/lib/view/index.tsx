@@ -14,7 +14,6 @@ import { AppTable, TablePagination } from '@auction-nx/client/components/table';
 import { Button } from '@auction-nx/client/components/button';
 import { BidDialog } from '@auction-nx/client/components/dialog';
 import { ArrowPathIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
-import { ColumnBidCheckButton } from './bidCheck';
 
 const columnHelper = createColumnHelper<Bid>();
 
@@ -22,10 +21,12 @@ function DashboardView({
   tabs,
   open,
   setOpen,
+  bidCheck,
 }: {
   tabs: string[];
   open: { open: boolean; id: string; type: string };
   setOpen: ({ open, id }: { open: boolean; id: string; type: string }) => void;
+  bidCheck: (bid: Bid) => boolean | undefined;
 }) {
   const columns = useMemo(
     () => [
@@ -86,7 +87,20 @@ function DashboardView({
       columnHelper.display({
         header: 'Bid',
         cell: (props) => (
-          <ColumnBidCheckButton bid={props.row.original} setOpen={setOpen} />
+          <Button
+            onClick={() => {
+              if (bidCheck(props.row.original)) {
+                return;
+              }
+              setOpen({
+                open: true,
+                id: props.row.original.id || '',
+                type: 'bid',
+              });
+            }}
+          >
+            Bid
+          </Button>
         ),
       }),
     ],
