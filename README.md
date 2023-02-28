@@ -51,6 +51,9 @@ Or if you want to run both BE and FE in 1 command, simple run this:
  npm run serve
 ```
 
+For available APIs, can view it via swagger:
+`http://localhost:3333/api/v1/jitera/docs`
+
 
 ## Usage
 
